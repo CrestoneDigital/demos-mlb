@@ -11,10 +11,20 @@
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/customchanges.css" rel="stylesheet">
+     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.14/themes/css/cartodb.css" />
+    <style>
+      #map {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.14/cartodb.js"></script>
+    
 </head>
 
 <body>
-    
+     
     <!-- Header Space -->
     <ul class="nav" id="side-menu">
         <li class="nav-header">
@@ -48,7 +58,7 @@
                                 <td>2011</td>
                             </tr>
                             <tr>
-                                <td><img alt="image" class="img-responsive" src="img/baseball-field.jpg"></td>
+                                <td><div id="map"></div></td>
                                 <td><img alt="image" class="img-responsive" src="img/baseball-field.jpg"></td>
                             </tr>
                             <tr>
@@ -66,5 +76,41 @@
     <div class="footer fixed" id="foot">
     
     </div>
-    
+     <script>
+      function main() {
+          layerptr = null;
+        cartodb.createVis('map', 'https://crestonedigital.cartodb.com/api/v2_1/viz/10d3b01c-0eb9-11e5-9693-0e853d047bba/viz.json', {
+            shareable: true,
+            title: true,
+            description: true,
+            search: false,
+            tiles_loader: true,
+            center: [39, -94],
+            scrollwheel: false,
+            zoom: 5
+        })
+        .done(function(vis, layers) {
+          // layer 0 is the base layer, layer 1 is cartodb layer
+          // setInteraction is disabled by default
+          layers[1].setInteraction(true);
+            layerptr=layers[1];
+           var year= 2000;
+            var sql = "SELECT t.name,t.yearID, avg(t.attendance)/81 as avg_att,avg(t.w) as avg_wins,s.cartodb_id,avg(t.hr) as avg_hr,   s.the_geom_webmercator FROM mlb_teams t, mlb_stadiums s WHERE t.name = s.team and t.yearID="+year+" group by t.name,s.cartodb_id, s.the_geom_webmercator,t.yearID";
+            layers[1].getSubLayer(0).setSQL(sql);
+              console.log(sql);
+            //.setSQL(sql);
+        
+          layers[1].on('featureOver', function(e, latlng, pos, data) {
+           // cartodb.log.log(e, latlng, pos, data);
+          });
+          layers[1].on('featureClick', function(e, latlng, pos, data){
+             console.log(e, latlng,pos,data); 
+          });
+        })
+        .error(function(err) {
+          console.log(err);
+        });
+      }
+      window.onload = main;
+    </script>
 </body>
