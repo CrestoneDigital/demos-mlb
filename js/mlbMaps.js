@@ -46,7 +46,7 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
             search: false,
             tiles_loader: true,
             center: [35, -94],
-            scrollwheel: false,
+            scrollwheel: true,
             zoom: 3
         })
         .done(function (vis, layers) {
@@ -64,7 +64,7 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
             });
             layers[1].on('featureClick', function (e, latlng, pos, data) {
                 console.log(e, latlng, pos, data);
-                self.trigger('featureClick', data.name);
+                self.trigger('featureClick', data);
 
             });
              if (callback) {

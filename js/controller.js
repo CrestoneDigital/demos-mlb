@@ -41,7 +41,7 @@ $(function() {
           });
 
     m.on('featureClick',function(data) {
-        console.log('click',data);
+        console.log('click',data.name);
     });
         m.getYearRanges(function(err,data){
         
