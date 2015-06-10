@@ -105,10 +105,14 @@ $(function () {
             map1.getNativeMap().sync(map2.getNativeMap());
             map2.getNativeMap().sync(map1.getNativeMap());
         })
-    });
+          });
 
-    m.on('featureClick', function (data) {
-        console.log('click', data);
-    });
+    m.on('featureClick',function(data) {
+        console.log('click',data.name);
+        m.getTeamSalaries(data.name,function(err, data) {
+            if (err) {
+            } else {
+                console.log('click2',data);
+            }
+        });
 
-});
