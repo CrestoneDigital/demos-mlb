@@ -36,8 +36,7 @@ $(function() {
                 map2.getNativeMap().sync(map1.getNativeMap());
             })
           });
-//    m.createMap(2014, "map");
-//    m.createMap(2014,'map1');
+
     m.on('featureClick',function(data) {
         console.log('click',data);
     });
