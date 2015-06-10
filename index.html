@@ -9,9 +9,12 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/ion.rangeSlider.css" rel="stylesheet">
+    <link href="css/ion.rangeSlider.skinSimple.css" rel="stylesheet">
+    
 
-    <!-- Javascript Files -->
-    <script src="js/Chart.min.js"></script>
+    <!-- JQuery File -->
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 
 <body>
@@ -45,9 +48,11 @@
                         </thead>
                         <tbody>
                             <tr class="custom">
-                                <td><h3>2010</h></td>
-                                <td></td>
-                                <td><h3>2011</h3></td>
+                                <td class="custom2"><h3>2010</h></td>
+                                <td class="custom2">
+                                    <input type="text" id="slide" name="Years" value="5" />
+                                </td>
+                                <td class="custom2"><h3>2011</h3></td>
                             </tr>
                             
                             <tr>
@@ -81,8 +86,13 @@
     
     </div>
      <!-- Javascript for Line graph -->
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="js/Chart.min.js"></script>
     <script src="js/graphInput.js"></script>
-    <script src="js/controller.js"></script>
     
+    <!-- Javascript for Slider -->
+    <script src="js/ion.rangeSlider.min.js"></script>
+    <script src="js/sliderInput.js"></script>
+    
+    <!-- Javascript Controller Function -->
+    <script src="js/controller.js"></script>
 </body>
