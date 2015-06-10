@@ -27,7 +27,6 @@ h4 {
 }
 h5 {
   font-size: 12px;
-  font-weight: bold;
 }
 h6 {
   font-size: 10px;
@@ -6422,5 +6421,10 @@ body.skin-3 {
 
 #tab_1{
     margin:auto;
+}
+
+.custom{
+    text-align: center;
+    font-weight: 400;
 }
 
