@@ -21,6 +21,7 @@ $(function() {
     graph=new GraphInput("2000","2015"); //Getthis data inputted from the range function from Andrew
     //Find labels for salary graph
     lineData.labels=graph.getLabels();
+    
     //Get data for appropriate team
     lineData.datasets[0].data=graph.getData(testObject); //Get this data handed in from Andrew
     
@@ -43,19 +44,19 @@ $(function() {
         console.log('click',data);
     });
         m.getYearRanges(function(err,data){
-        //Create new slider
-        $(slide).ionRangeSlider({
-            type: "double",
-            min:data[0].min,
-            max:data[0].max,
-            from:data[0].min,
-            to:data[0].max,
-            min_interval:1,
-            grid:true,
-            grid_snap:true,
-                onStart: function (data) {
-            console.log(data);
-
+        
+            
+            
+    //Create new slider
+    $(slide).ionRangeSlider({
+        type: "double",
+        min:data[0].min,
+        max:data[0].max,
+        from:data[0].min,
+        to:data[0].max,
+        min_interval:1,
+        grid:true,
+        grid_snap:true,
         onFinish:function (data) {
             console.log(data);
     }
