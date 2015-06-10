@@ -21,7 +21,15 @@
     
 
     <!-- JQuery File -->
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+   <style>
+      #map,#map1 {
+        height: 300px;
+        padding: 0;
+        margin: 0;
+        width: 500px;
+          
+      }
+    </style>
 
 </head>
 
@@ -65,9 +73,10 @@
                             
                             <tr>
                                 <!-- Map 1 -->
-                                <td><img alt="image" class="img-responsive" src="img/baseball-field.jpg"></td>
+                                <td><div id="map"></div></td>
                                 <!-- Map 2 -->
-                                <td><img alt="image" class="img-responsive" src="img/baseball-field.jpg"></td>
+                                <td><div id="map1"></div></td>
+                                
                             </tr>
                             
                             <tr>
@@ -96,6 +105,7 @@
      <!-- Javascript for Line graph -->
 
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.14/cartodb.js"></script>
+
     <script src="js/jquery.eventemitter.js"></script>
     <script src="js/graphInput.js"></script>
     <script src="js/L.Map.Sync.js"></script>

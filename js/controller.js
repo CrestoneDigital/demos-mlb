@@ -25,17 +25,27 @@ $(function() {
     lineData.datasets[0].data=graph.getData(testObject); //Get this data handed in from Andrew
     //draw salary graph
     graph.drawGraph("lineChart");
-<<<<<<< HEAD
+
     m = new MlbMap({user: 'crestonedigital'});
-    m.createMap(2001,'map');
+    m.createMap(2000, 'map', function(viz) {
+            var map1 = viz;
+            m.createMap(2014, 'map1', function(viz) {
+                var map2 = viz;
+                console.log('here');
+                map1.getNativeMap().sync(map2.getNativeMap());
+                map2.getNativeMap().sync(map1.getNativeMap());
+            })
+          });
+//    m.createMap(2014, "map");
+//    m.createMap(2014,'map1');
     m.on('featureClick',function(data) {
         console.log('click',data);
     });
-});
-=======
+    
     //Create new slider
     slider=new SliderInput();
     $(slide).ionRangeSlider(slider.settings);
     
+    
 })
->>>>>>> origin/master
+

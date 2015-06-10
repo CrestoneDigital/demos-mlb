@@ -5,7 +5,7 @@ MlbMap = function (settings) {
     });
 
 };
-
+// get year range
 MlbMap.prototype.getYearRanges = function (cb) {
     var q = "SELECT min(yearId),max(yearID) FROM mlb_teams";
     this.sql.execute(q).done(function (data) {
@@ -20,7 +20,7 @@ MlbMap.prototype.getYearRanges = function (cb) {
     });
 
 }
-
+//data for team salaries by year ascending order
 MlbMap.prototype.getTeamSalaries = function (team, cb) {
     var q = "SELECT name,yearid,avg(salary) from mlb_salaries "
     q += "WHERE name = '" + team + "'";
@@ -36,7 +36,7 @@ MlbMap.prototype.getTeamSalaries = function (team, cb) {
     });
 
 }
-
+//create new map for salaries
 MlbMap.prototype.createMap = function (year, mapName, callback) {
     var self = this;
     cartodb.createVis(mapName, 'https://crestonedigital.cartodb.com/api/v2_1/viz/75edbb9c-0ee5-11e5-8ef9-0e9d821ea90d/viz.json', {
@@ -64,11 +64,13 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
             });
             layers[1].on('featureClick', function (e, latlng, pos, data) {
                 console.log(e, latlng, pos, data);
-                self.trigger('featureClick', data);
+                self.trigger('featureClick', data.name);
 
             });
-
+             if (callback) {
             callback(vis);
+        }
+          
 
         })
         .error(function (err) {
