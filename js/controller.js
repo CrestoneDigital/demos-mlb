@@ -114,5 +114,7 @@ $(function () {
             } else {
                 console.log('click2',data);
             }
-        });
-
+        })
+    });
+    
+})
