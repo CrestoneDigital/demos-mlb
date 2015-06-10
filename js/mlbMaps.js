@@ -46,7 +46,7 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
             search: false,
             tiles_loader: true,
             center: [35, -94],
-            scrollwheel: true,
+            scrollwheel: false,
             zoom: 3
         })
         .done(function (vis, layers) {
