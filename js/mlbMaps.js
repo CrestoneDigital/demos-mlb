@@ -45,7 +45,7 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
             description: false,
             search: false,
             tiles_loader: true,
-            center: [39, -94],
+            center: [35, -94],
             scrollwheel: false,
             zoom: 3
         })
@@ -54,7 +54,7 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
             // setInteraction is disabled by default
             layers[1].setInteraction(true);
             layerptr = layers[1];
-            var sql = "SELECT t.name,t.yearid, avg(t.salary) as avg_sal, s.cartodb_id, s.the_geom_webmercator FROM mlb_salaries t, mlb_stadiums s WHERE t.name = s.team and yearid=" + year + " group by t.name,s.cartodb_id, s.the_geom_webmercator,t.yearID";
+            var sql = "SELECT t.name,t.yearid, FLOOR(avg(t.salary)) as avg_sal, s.cartodb_id, s.the_geom_webmercator FROM mlb_salaries t, mlb_stadiums s WHERE t.name = s.team and yearid=" + year + " group by t.name,s.cartodb_id, s.the_geom_webmercator,t.yearID order by avg_sal desc";
             layers[1].getSubLayer(0).setSQL(sql);
             console.log(sql);
 
