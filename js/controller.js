@@ -46,7 +46,6 @@ $(function() {
             if (err) {
             } else {
                 console.log('click2',data);
-                 //lineData.datasets[0].data=graph.getData(data);
             }
         });
     });
