@@ -42,6 +42,13 @@ $(function() {
 
     m.on('featureClick',function(data) {
         console.log('click',data.name);
+        m.getTeamSalaries(data.name,function(err, data) {
+            if (err) {
+            } else {
+                console.log('click2',data);
+                 //lineData.datasets[0].data=graph.getData(data);
+            }
+        });
     });
         m.getYearRanges(function(err,data){
         
