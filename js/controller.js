@@ -23,9 +23,11 @@ $(function() {
     lineData.labels=graph.getLabels();
     //Get data for appropriate team
     lineData.datasets[0].data=graph.getData(testObject); //Get this data handed in from Andrew
+    
     //draw salary graph
     graph.drawGraph("lineChart");
-
+    
+    //Draw Maps
     m = new MlbMap({user: 'crestonedigital'});
     m.createMap(2000, 'map', function(viz) {
             var map1 = viz;
@@ -40,11 +42,30 @@ $(function() {
     m.on('featureClick',function(data) {
         console.log('click',data);
     });
+        m.getYearRanges(function(err,data){
+        //Create new slider
+        $(slide).ionRangeSlider({
+            type: "double",
+            min:data[0].min,
+            max:data[0].max,
+            from:data[0].min,
+            to:data[0].max,
+            min_interval:1,
+            grid:true,
+            grid_snap:true,
+                onStart: function (data) {
+            console.log(data);
+
+        onFinish:function (data) {
+            console.log(data);
+    }
+
+    })
     
-    //Create new slider
-    slider=new SliderInput();
-    $(slide).ionRangeSlider(slider.settings);
     
+
+    })
     
-})
+});
+    
 
