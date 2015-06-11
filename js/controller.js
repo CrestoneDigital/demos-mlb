@@ -1,5 +1,5 @@
 $(function () {
-    var ob1 = {
+    /*var ob1 = {
         avg: 90,
         name: "j"
     };
@@ -51,7 +51,7 @@ $(function () {
         avg: 498
     }
     testObject = [ob1, ob2, ob3, ob3, ob4, ob5, ob6, ob7, ob8, ob9, oba, obb, obc, obd, obe, obf, obg];
-    var year1, year2;
+    var year1, year2; */
 
     m = new MlbMap({
         user: 'crestonedigital'
@@ -84,12 +84,10 @@ $(function () {
 
             })
 
-
-            graph = new GraphInput(data[0].min, data[0].max);
+    // Create Graph Object        
+    graph = new GraphInput(data[0].min, data[0].max);
         
-        //Input year ranges
-    
-    //Getthis data inputted from the range function from Andrew
+      
     //Find labels for salary graph
     lineData.labels = graph.getLabels();
 
@@ -108,13 +106,18 @@ $(function () {
             map2.getNativeMap().sync(map1.getNativeMap());
         })
           });
-
+    //Map Click Function
     m.on('featureClick',function(data) {
         console.log('click',data.name);
         m.getTeamSalaries(data.name,function(err, data) {
             if (err) {
             } else {
                 console.log('click2',data);
+                lineData.datasets[0].data = graph.getData(data);
+                graph.drawGraph("lineChart");
+                
+                
+                
             }
         })
     });

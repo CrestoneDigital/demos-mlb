@@ -54,7 +54,8 @@ GraphInput.prototype.drawGraph = function(canvasId){
 //passed an array of object with properties name, yearid, avg
 GraphInput.prototype.getData = function(teamArray){
     var salaryArray=[];
-    var end = this.year2-this.year1;
+    var end = this.year2-2000;
+    var i=this.year1-2000
     for(i=0; i<=end;i++){
         salaryArray[i]=teamArray[i].avg;
     }
