@@ -9,25 +9,17 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
     <link href="css/app.css" rel="stylesheet">
-
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.14/themes/css/cartodb.css" />
-    <!-- Javascript Files -->
-    <script src="js/Chart.min.js"></script>
-
     <link href="css/ion.rangeSlider.css" rel="stylesheet">
     <link href="css/ion.rangeSlider.skinSimple.css" rel="stylesheet">
     
-
-    <!-- JQuery File -->
    <style>
       #map,#map1 {
         height: 400px;
         padding: 0;
         margin: 0;
         width: 500px;
-          
       }
     </style>
 
@@ -39,7 +31,7 @@
     <ul class="nav" id="side-menu">
         <li class="nav-header">
             <div class="dropdown profile-element">
-                <img alt="image" class="img-responsive" src="img/MLB-Panorama.jpg">
+                <img id = "header-picture" alt="image" class="img-responsive" src="img/MLB-Panorama.jpg">
                 <!-- Public Domain Image -->
             </div>
             <div class="logo-element">
@@ -80,7 +72,8 @@
                             </tr>
                             
                             <tr>
-                                <td colspan="2" class="custom"><h1 id="graphTitle">Salary</h1></td>
+                                <td class="custom"><h1 id="graphTitle">Average MLB Salary</h1></td>
+                                <td id="legend"></td>
                             </tr>
                             
                             <!-- Line Graph -->

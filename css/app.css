@@ -8,6 +8,12 @@
     font-weight: 400;
 }
 
-#lineChart{
-    height:100px;
+#lineChart {
+    height: 100px;
+}
+
+#header-picture{
+    padding:0px;
+    margin: 0px;
+    border: 0px;
 }

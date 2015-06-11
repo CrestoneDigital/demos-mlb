@@ -63,8 +63,6 @@ $(function () {
                                     $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
                                     //Draw map on new canvas element
                                     graph.drawGraph("lineChart");
-                                    //$(#graphTitle).
-
                                 }
                             })
                         });
