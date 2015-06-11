@@ -76,9 +76,9 @@ $(function () {
                     console.log(data);
                     graph.year1 = data.fromNumber;
                     graph.year2 = data.toNumber;
+                    //Redraw graph with updated values
+                    lineData.datasets[0].data = graph.cutData(salaryArray);
                     lineData.labels = graph.getLabels();
-
-                    //draw salary graph
                     graph.drawGraph("lineChart");
                 }
 
@@ -115,7 +115,6 @@ $(function () {
                 console.log('click2',data);
                 lineData.datasets[0].data = graph.getData(data);
                 graph.drawGraph("lineChart");
-                
                 
                 
             }

@@ -1,8 +1,8 @@
-var GraphInput = function(year1,year2){
+var GraphInput = function (year1, year2) {
     this.year1 = year1;
     this.year2 = year2;
-    
-        lineData = {
+
+    lineData = {
         labels: [],
         datasets: [
             {
@@ -17,7 +17,7 @@ var GraphInput = function(year1,year2){
             }]
     };
 
-        lineOptions = {
+    lineOptions = {
         scaleShowGridLines: true,
         scaleGridLineColor: "rgba(0,0,0,.05)",
         scaleGridLineWidth: 1,
@@ -34,30 +34,42 @@ var GraphInput = function(year1,year2){
     };
 };
 
-GraphInput.prototype.getLabels = function(){
-    var labels=[];
-    var end = this.year2-this.year1;
-    
-    for(i=0;i<=end;i++){
-        labels[i]=Number(this.year1)+i; 
-        labels[i]=String(labels[i]);
+GraphInput.prototype.getLabels = function () {
+    var labels = [];
+    var end = this.year2 - this.year1;
+
+    for (i = 0; i <= end; i++) {
+        labels[i] = Number(this.year1) + i;
+        labels[i] = String(labels[i]);
     }
     return labels;
 }
-        
-GraphInput.prototype.drawGraph = function(canvasId){
+
+GraphInput.prototype.drawGraph = function (canvasId) {
         var cvs = document.getElementById(canvasId)
-        ctx=cvs.getContext("2d");
+        ctx = cvs.getContext("2d");
         myNewChart = new Chart(ctx).Line(lineData, lineOptions);
-        
-}
-//passed an array of object with properties name, yearid, avg
-GraphInput.prototype.getData = function(teamArray){
-    var salaryArray=[];
-    var end = this.year2-2000;
-    var i=this.year1-2000
-    for(i=0; i<=end;i++){
-        salaryArray[i]=teamArray[i].avg;
+
+    }
+    //passed an array of object with properties name, yearid, avg
+GraphInput.prototype.getData = function (teamArray) {
+    salaryArray = [];
+    var end = this.year2 - 2000;
+    var i = this.year1 - 2000;
+    for (i = 0; i <= end; i++) {
+        salaryArray[i] = teamArray[i].avg;
     }
     return salaryArray;
+}
+
+GraphInput.prototype.cutData = function () {
+    cutSalary = [];
+    endIndex = this.year2 - 2000;
+    startIndex = this.year1 - 2000;
+    i = 0
+    for (; startIndex <=endIndex; startIndex++) {
+        cutSalary[i] = salaryArray[startIndex];
+        i++;
+    }
+    return cutSalary;
 }
