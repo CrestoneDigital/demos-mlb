@@ -72,6 +72,6 @@ GraphInput.prototype.cutData = function () {
         cutSalary[i] = salaryArray[startIndex];
         i++;
     }
-    linData
+    lineData.labels=this.getLabels();
     return cutSalary;
 }
