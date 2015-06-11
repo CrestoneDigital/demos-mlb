@@ -39,7 +39,7 @@ $(function () {
         m.getMlbAvgSalary(function (err, data) {
             if (err) {} else {
                 console.log(data);
-                lineData.datasets[0].data = graph.getData(data);
+                lineData.datasets[1].data = graph.getData(data);
 
                 //draw salary graph
                 graph.drawGraph("lineChart");
