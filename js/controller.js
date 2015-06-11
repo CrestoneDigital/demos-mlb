@@ -76,6 +76,8 @@ $(function () {
                     console.log(data);
                     graph.year1 = data.fromNumber;
                     graph.year2 = data.toNumber;
+                    lineData.labels = graph.getLabels();
+
                     //draw salary graph
                     graph.drawGraph("lineChart");
                 }
