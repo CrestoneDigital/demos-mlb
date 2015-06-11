@@ -3,10 +3,10 @@ var GraphInput = function (year1, year2) {
     this.year2 = year2;
 
     lineData = {
-        labels: [],
+        labels: this.getLabels(),
         datasets: [
             {
-                label: this.getLabels,
+                label: " Overall Avg Salary Data",
                 fillColor: "rgba(220,220,220,0.5)",
                 strokeColor: "rgba(220,220,220,1)",
                 pointColor: "rgba(220,220,220,1)",
