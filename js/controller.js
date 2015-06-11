@@ -30,6 +30,8 @@ $(function () {
               lineData.datasets[0].data=graph.cutData();
               //Draw map on new canvas element
               graph.drawGraph("lineChart");
+              m.updateMap(graph.year1);
+              p.udpateMap(graph.year2);
               
               //Add code to make the maps switch to appropriate years
 
