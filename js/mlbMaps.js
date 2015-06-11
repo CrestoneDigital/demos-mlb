@@ -55,7 +55,7 @@ MlbMap.prototype.getTeamWins = function (team, year, cb) {
 }
 //get money spent per win for selcted team/year
 MlbMap.prototype.getMoneyPerWin = function (team, year, cb) {
-    var q = "SELECT avg(s.salary/t.w) as avg_money  "
+    var q = "SELECT avg(s.salary/t.w) as avg  "
     q += "FROM mlb_teams t, mlb_salaries s "
     q += "WHERE t.name = s.name and s.yearid=t.yearid and t.name= '" + team + "'";
     q += " and t.yearid = "+year;
@@ -71,7 +71,7 @@ MlbMap.prototype.getMoneyPerWin = function (team, year, cb) {
 }
 //get average attendence per game for selected team/year
 MlbMap.prototype.getAttPerGame = function (team, year, cb) {
-    var q = "select FLOOR(avg(attendance)/81) as avg_att From mlb_teams  "
+    var q = "select FLOOR(avg(attendance)/81) as avg From mlb_teams  "
     q += "WHERE name= '" + team + "'";
     q += " and yearid = "+year;
     console.log(q);
