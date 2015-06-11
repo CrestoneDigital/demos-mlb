@@ -6,7 +6,7 @@ var GraphInput = function (year1, year2) {
         labels: [],
         datasets: [
             {
-                label: "Example dataset",
+                label: this.getLabels,
                 fillColor: "rgba(220,220,220,0.5)",
                 strokeColor: "rgba(220,220,220,1)",
                 pointColor: "rgba(220,220,220,1)",
@@ -72,4 +72,8 @@ GraphInput.prototype.cutData = function () {
         i++;
     }
     return cutSalary;
+}
+
+GraphInput.prototype.updateData = function(){
+    
 }

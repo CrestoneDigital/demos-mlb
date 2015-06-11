@@ -1,5 +1,5 @@
 $(function () {
-    /*var ob1 = {
+    var ob1 = {
         avg: 90,
         name: "j"
     };
@@ -51,7 +51,7 @@ $(function () {
         avg: 498
     }
     testObject = [ob1, ob2, ob3, ob3, ob4, ob5, ob6, ob7, ob8, ob9, oba, obb, obc, obd, obe, obf, obg];
-    var year1, year2; */
+    var year1, year2;
 
     m = new MlbMap({
         user: 'crestonedigital'
@@ -76,10 +76,7 @@ $(function () {
                     console.log(data);
                     graph.year1 = data.fromNumber;
                     graph.year2 = data.toNumber;
-                    //Redraw graph with updated values
-                    lineData.datasets[0].data = graph.cutData(salaryArray);
-                    lineData.labels = graph.getLabels();
-                    graph.drawGraph("lineChart");
+                    //Add code to make the maps switch to appropriate years
                 }
 
             })
@@ -92,7 +89,16 @@ $(function () {
     lineData.labels = graph.getLabels();
 
     //Get data for appropriate team
-    lineData.datasets[0].data = graph.getData(testObject); //Get this data handed in from Andrew
+        var initialData=[];
+        m.getMlbAvgSalary(function(err, data) {
+            if (err) {
+            } else {
+                console.log(data);
+                 lineData.datasets[0].data = graph.getData(data); //Get this data handed in from Andrew
+            }
+        })
+        
+   
 
     //draw salary graph
     graph.drawGraph("lineChart");
