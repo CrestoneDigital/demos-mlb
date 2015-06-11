@@ -1,7 +1,11 @@
 $(function () {
     m = new MlbMap({
         user: 'crestonedigital'
-    });
+    },'#B81609');
+    
+    p = new MlbMap({
+        user: 'crestonedigital'
+    },'#3E7BB6');
 
 
     //Create new slider
@@ -47,13 +51,15 @@ $(function () {
                 //Draw Maps
                 m.createMap(graph.year1, 'map', function (viz) {
                     var map1 = viz;
-                    m.createMap(graph.year2, 'map1', function (viz) {
+                    console.log('over here',map1);
+                    p.createMap(graph.year2, 'map1', function (viz) {
                         var map2 = viz;
                         map1.getNativeMap().sync(map2.getNativeMap());
                         map2.getNativeMap().sync(map1.getNativeMap());
-
-                        //Map Click Function
-                        m.on('featureClick', function (data) {
+                    })
+                });
+                
+                m.on('featureClick', function (data) {
                             console.log('click', data.name);
                             m.getTeamSalaries(data.name, function (err, data) {
                                 if (err) {} else {
@@ -66,8 +72,22 @@ $(function () {
                                 }
                             })
                         });
-                    })
-                });
+                p.on('featureClick', function (data) {
+                            console.log('click', data.name);
+                            p.getTeamSalaries(data.name, function (err, data) {
+                                if (err) {} else {
+                                    console.log('click2', data);
+                                    lineData.datasets[0].data = graph.getData(data);
+                                    //Create new html canvas element
+                                    $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
+                                    //Draw map on new canvas element
+                                    graph.drawGraph("lineChart");
+
+                                }
+                            })
+                        });
+               
+                
             }
         })
     })
