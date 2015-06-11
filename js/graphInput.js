@@ -73,7 +73,3 @@ GraphInput.prototype.cutData = function () {
     }
     return cutSalary;
 }
-
-GraphInput.prototype.updateData = function(){
-    
-}
