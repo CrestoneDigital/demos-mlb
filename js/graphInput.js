@@ -48,6 +48,7 @@ GraphInput.prototype.getLabels = function () {
 GraphInput.prototype.drawGraph = function (canvasId) {
         var cvs = document.getElementById(canvasId)
         ctx = cvs.getContext("2d");
+        ctx.canvas.height = 50;
         myNewChart = new Chart(ctx).Line(lineData, lineOptions);
 
     }
@@ -71,5 +72,6 @@ GraphInput.prototype.cutData = function () {
         cutSalary[i] = salaryArray[startIndex];
         i++;
     }
+    linData
     return cutSalary;
 }

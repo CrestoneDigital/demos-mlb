@@ -22,7 +22,8 @@ $(function () {
               
               //Create new html canvas element
               $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
-              
+              //Truncate data to appropriate years
+              lineData.datasets[0].data=graph.cutData();
               //Draw map on new canvas element
               graph.drawGraph("lineChart");
               

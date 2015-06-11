@@ -2,3 +2,13 @@
     width: 500px;
     height: 300px;
 }
+
+.custom{
+    text-align: left;
+    font-weight: 400;
+}
+
+
+#lineChart{
+    height:100px;
+}
