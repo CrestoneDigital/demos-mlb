@@ -69,9 +69,23 @@ MlbMap.prototype.getMoneyPerWin = function (team, year, cb) {
     });
 
 }
+//get average attendence per game for selected team/year
+MlbMap.prototype.getAttPerGame = function (team, year, cb) {
+    var q = "select FLOOR(avg(attendance)/81) as avg_att From mlb_teams  "
+    q += "WHERE name= '" + team + "'";
+    q += " and yearid = "+year;
+    console.log(q);
+    this.sql.execute(q).done(function (data) {
+        data.rows.forEach(function (r) {
+            console.log(r);
+        });
+        if (cb) cb(null, data.rows);
+    });
+
+}
 //get mlb average salary
 MlbMap.prototype.getMlbAvgSalary = function (cb) {
-    var q = "SELECT yearid,FLOOR(avg(salary)) as avg_salary from mlb_salaries group by yearid order by yearid asc"
+    var q = "SELECT yearid,FLOOR(avg(salary)) as avg from mlb_salaries group by yearid order by yearid asc"
     console.log(q);
     this.sql.execute(q).done(function (data) {
         data.rows.forEach(function (r) {
@@ -107,9 +121,9 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
             layers[1].on('featureOver', function (e, latlng, pos, data) {
                 // cartodb.log.log(e, latlng, pos, data);
             });
-            layers[1].on('featureClick', function (e, latlng, pos, data) {
+            layers[1].on('featureClick', function (e, latlng, pos, data, mapName) {
                 console.log(e, latlng, pos, data);
-                self.trigger('featureClick', data);
+                self.trigger('featureClick', data, mapName);
 
             });
              if (callback) {
