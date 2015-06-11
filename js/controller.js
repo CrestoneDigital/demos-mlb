@@ -59,6 +59,7 @@ $(function () {
                     })
                 });
                 
+                //Right map onclick function
                 m.on('featureClick', function (data) {
                             console.log('click', data.name);
                             m.getTeamSalaries(data.name, function (err, data) {
@@ -72,6 +73,7 @@ $(function () {
                                 }
                             })
                         });
+                //Left Map onclick functions
                 p.on('featureClick', function (data) {
                             console.log('click', data.name);
                             p.getTeamSalaries(data.name, function (err, data) {
@@ -85,11 +87,14 @@ $(function () {
 
                                 }
                             })
-                        });
-               
+                        });  
+                //draw polar area graph1
+                polarGraph1=new PolarGraph();
+                polarGraph1.drawPolarGraph("polar1");
                 
+                polarGraph2=new PolarGraph();
+                polarGraph2.drawPolarGraph("polar2");
             }
         })
     })
-
 })
