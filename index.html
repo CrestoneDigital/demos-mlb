@@ -30,7 +30,7 @@
     <!-- Header Space -->
     <ul class="nav" id="side-menu">
         <li class="nav-header">
-            <div class="dropdown profile-element">
+            <div id="header-div">
                 <img id = "header-picture" alt="image" class="img-responsive" src="img/MLB-Panorama.jpg">
                 <!-- Public Domain Image -->
             </div>
@@ -79,12 +79,16 @@
                             <!-- Line Graph -->
                             <tr>
                                 <td id="canvas" colspan="2">
-                                    <canvas id="lineChart"></canvas>
-                                    
+                                    <canvas id="lineChart"></canvas> 
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">Bottom buttons</td>
+                                <td>
+                                    <canvas id="polar1"></canvas>
+                                </td>
+                                <td>
+                                    <canvas id="polar2"></canvas>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -108,7 +112,10 @@
     <script src="js/ion.rangeSlider.min.js"></script>
     <script src="js/sliderInput.js"></script>
     
+    <!-- Javscript for Polar Graphs -->
+    <script src="js/polarGraph.js"></script>
+    
     <!-- Javascript Controller Function -->
-
     <script src="js/controller.js"></script>
+    
 </body>
