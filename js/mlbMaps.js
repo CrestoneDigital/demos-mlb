@@ -121,9 +121,9 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
             layers[1].on('featureOver', function (e, latlng, pos, data) {
                 // cartodb.log.log(e, latlng, pos, data);
             });
-            layers[1].on('featureClick', function (e, latlng, pos, data, mapName) {
+            layers[1].on('featureClick', function (e, latlng, pos, data) {
                 console.log(e, latlng, pos, data);
-                self.trigger('featureClick', data, mapName);
+                self.trigger('featureClick', data);
 
             });
              if (callback) {
