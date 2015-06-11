@@ -113,8 +113,8 @@ $(function () {
         })
           });
     //Map Click Function
-    m.on('featureClick',function(data,mapName) {
-        console.log('click',data.name,mapName);
+    m.on('featureClick',function(data) {
+        console.log('click',data.name);
         m.getTeamSalaries(data.name,function(err, data) {
             if (err) {
             } else {
