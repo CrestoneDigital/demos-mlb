@@ -36,6 +36,51 @@ MlbMap.prototype.getTeamSalaries = function (team, cb) {
     });
 
 }
+//get team's wins for selected year
+MlbMap.prototype.getTeamWins = function (team, year, cb) {
+    var q = "select avg(w) from mlb_teams "
+    q += "WHERE name = '" + team + "'";
+    q += " and yearid = "+year;
+    q += " group by yearid, name"
+    console.log(q);
+    this.sql.execute(q).done(function (data) {
+        l = []
+        data.rows.forEach(function (r) {
+            console.log(r);
+            l.push(r.avg)
+        });
+        if (cb) cb(null, data.rows);
+    });
+
+}
+//get money spent per win for selcted team/year
+MlbMap.prototype.getMoneyPerWin = function (team, year, cb) {
+    var q = "SELECT avg(s.salary/t.w) as avg_money  "
+    q += "FROM mlb_teams t, mlb_salaries s "
+    q += "WHERE t.name = s.name and s.yearid=t.yearid and t.name= '" + team + "'";
+    q += " and t.yearid = "+year;
+    //q += " group by t.name, t.yearid"
+    console.log(q);
+    this.sql.execute(q).done(function (data) {
+        data.rows.forEach(function (r) {
+            console.log(r);
+        });
+        if (cb) cb(null, data.rows);
+    });
+
+}
+//get mlb average salary
+MlbMap.prototype.getMlbAvgSalary = function (cb) {
+    var q = "SELECT yearid,FLOOR(avg(salary)) as avg_salary from mlb_salaries group by yearid order by yearid asc"
+    console.log(q);
+    this.sql.execute(q).done(function (data) {
+        data.rows.forEach(function (r) {
+            console.log(r);
+        });
+        if (cb) cb(null, data.rows);
+    });
+
+}
 //create new map for salaries
 MlbMap.prototype.createMap = function (year, mapName, callback) {
     var self = this;
