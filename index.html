@@ -78,17 +78,26 @@
                     <!-- Frame for first maps and graphs -->
                     <table id="tab_1">
                         <thead>
-                            <th class="custom" colspan="2"><h1>MLB Stats</h1></th>
+                            <th class="custom" colspan="2"><h1>MLB Annual Payroll</h1></th>
                         </thead>
                         <tbody>
                             <tr class="custom">
-                                <td class="custom2"><h3>2010</h></td>
+                                <td class="custom2"><h3 class='year1'>2000</h></td>
+<!--
                                 <td class="custom2">
-                                    <input type="text" id="slide" name="Years" value="" />
+                                    
                                 </td>
-                                <td class="custom2"><h3>2011</h3></td>
+-->
+                                <td class="custom2 text-right"><h3 class='year2'>2014</h3></td>
                             </tr>
                             
+                            <tr>
+                                <td id="canvas" colspan="2">
+                                    <div>
+                                        <input type="text" id="slide" name="Years" value="" />  
+                                    </div>
+                                </td>
+                            </tr>
                             
                             <tr>
                                 <!-- Map 1 -->
@@ -98,6 +107,17 @@
                                 
                             </tr>
                             
+                            <div>
+                            <tr>
+                                <td>
+                                    <center><h3 id="team1" style="padding:20px;">Select team to compare</h3></center>
+                                </td>
+                                <td>
+                                    <center><h3 id="team2" style="padding:20px;">Select team to compare</h3></center>
+                                </td>
+                            </tr>
+                            </div>
+                              
                             <tr>
                                 <td class="custom"><h1 id="graphTitle">Average MLB Salary</h1></td>
                                 <td id="legend"></td>
@@ -122,10 +142,10 @@
                         <div>
                             <tr>
                                 <td>
-                                    <center><h2 id="totalWins1">2000</h2></center>
+                                    <center><h2 class='year1'>2000</h2></center>
                                 </td>
                                 <td>
-                                    <center><h2 id="totalWins2">2014</h2></center>
+                                    <center><h2 class='year2'>2014</h2></center>
                                 </td>
                             </tr>
                        </div> 
@@ -149,10 +169,10 @@
                         <div>
                             <tr>
                                 <td>
-                                    <center><h2 id="costWin1">2000</h2></center>
+                                    <center><h2 class='year1'>2000</h2></center>
                                 </td>
                                 <td>
-                                    <center><h2 id="costWin2">2014</h2></center>
+                                    <center><h2 class='year2'>2014</h2></center>
                                 </td>
                             </tr>
                        </div> 

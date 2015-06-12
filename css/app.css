@@ -25,3 +25,8 @@
 .nav-header {
  padding:0;   
 }
+
+.baltimore-orioles {
+    background: url(../img/mlb/baltimore-orioles.svg) no-repeat;
+    background-position: left center; 
+}

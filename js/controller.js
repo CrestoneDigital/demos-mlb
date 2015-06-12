@@ -42,15 +42,15 @@ $(function () {
                     graph.drawGraph("lineChart");
                     m.updateMap(graph.year1);
                     p.updateMap(graph.year2);
-                    document.getElementById("totalWins1").innerHTML = graph.year1;
-                    document.getElementById("totalWins2").innerHTML = graph.year2;
-                    document.getElementById("costWin1").innerHTML = graph.year1;
-                    document.getElementById("costWin2").innerHTML = graph.year2;
+                    $('.year1').html(graph.year1);
+                    $('.year2').html(graph.year2);
+                    
                 }
 
             })
             // Create Graph Object        
         graph = new GraphInput(data[0].min, data[0].max);
+        
 
         //Get starting data for entire league
         m.getMlbAvgSalary(function (err, data) {
@@ -74,7 +74,8 @@ $(function () {
 
                 //Left map onclick function
                 m.on('featureClick', function (data) {
-                    //document.getElementById("team1").innerHTML ="Total Wins for year "+ data.yearid;
+                    $('#team1').html(data.name);
+                    $('#team1').addClass(data.name.toLowerCase().replace(/\ /g, '-'));
                     m.getTeamSalaries(data.name, function (err, data) {
                         if (err) {} else {
                             console.log(data);
@@ -112,8 +113,8 @@ $(function () {
                 });
                 //Right Map onclick functions
                 p.on('featureClick', function (data) {
-                    //document.getElementById("team2").innerHTML = data.yearid;  
-                    //$('team1').html(data.name);
+                    $('#team2').html(data.name);
+                    $('#team2').addClass(data.name.toLowerCase().replace(/\ /g, '-'));
                     p.getTeamSalaries(data.name, function (err, data) {
                         if (err) {} else {
                             lineData.datasets[2].data = graph.getData(data);
