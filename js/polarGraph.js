@@ -1,23 +1,22 @@
  var PolarGraph = function () {
      this.polarData = [
          {
-             value: 300,
+             value: 0,
              color: "#a3e1d4",
              highlight: "#1ab394",
-             label: "App"
+             label: "Team 1 Wins"
         },
          {
-             value: 140,
+             value: 0,
              color: "#dedede",
              highlight: "#1ab394",
-             label: "Software"
+             label: "Team 2 Wins"
         },
          {
-             value: 200,
-             color: "#b5b8cf",
-             highlight: "#1ab394",
-             label: "Laptop"
-        }
+             value:81,
+             color:"#fff000",
+             label:"Yearly Win Average"
+         }
     ];
      this.polarOptions = {
          scaleShowLabelBackdrop: true,
@@ -37,17 +36,20 @@
      }
  };
 
-PolarGraph.prototype.dataUpdate = function (team,year,elementID) {
-        var finalData = undefined;
-        m.getTeamWins(team, year, function (err, data) {
-                if (err) {} else {
-                    console.log(data);
-                    finalData=data[0].avg;
-                }})
-        return finalData;
-        }
-PolarGraph.prototype.drawPolarGraph = function (elementID) {
-      var cvs = document.getElementById(elementID)
-        ctx = cvs.getContext("2d");
-        var NewChart = new Chart(ctx).PolarArea(this.polarData, this.polarOptions);
-        }
+ PolarGraph.prototype.dataUpdate1 = function (data) {
+     console.log(data);
+     finalData = data[0].avg;
+     polarGraph1.polarData[0].value = finalData;
+ }
+ 
+  PolarGraph.prototype.dataUpdate2 = function (data) {
+     console.log(data);
+     finalData = data[0].avg;
+     polarGraph1.polarData[1].value = finalData;
+ }
+
+ PolarGraph.prototype.drawPolarGraph = function (elementID) {
+     var cvs = document.getElementById(elementID)
+     ctx = cvs.getContext("2d");
+     var NewChart = new Chart(ctx).PolarArea(this.polarData, this.polarOptions);
+ }

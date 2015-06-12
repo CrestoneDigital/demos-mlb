@@ -1,6 +1,7 @@
-MlbMap = function (settings,color) {
+MlbMap = function (settings,color,logo) {
     this.settings = settings;
     this.layerPtr = null;
+    this.logo=logo;
     this.sql = new cartodb.SQL({
         user: settings.user
     });
@@ -74,11 +75,53 @@ MlbMap.prototype.getMoneyPerWin = function (team, year, cb) {
     });
 
 }
+//get mlb average money per win by year
+MlbMap.prototype.getMlbMoneyPerWinYear = function (year,cb) {
+    var q = "SELECT FLOOR(avg(s.salary/t.w)) as avg  "
+    q += "FROM mlb_teams t, mlb_salaries s "
+    q += "WHERE t.name = s.name and s.yearid=t.yearid and t.yearid = "+year;
+    q += " group by t.yearid"
+    console.log(q);
+    this.sql.execute(q).done(function (data) {
+        data.rows.forEach(function (r) {
+            console.log(r);
+        });
+        if (cb) cb(null, data.rows);
+    });
+
+}
+//get mlb average money per win for mlb
+MlbMap.prototype.getMlbMoneyPerWin = function (cb) {
+    var q = "SELECT FLOOR(avg(s.salary/t.w)) as avg  "
+    q += "FROM mlb_teams t, mlb_salaries s "
+    q += "WHERE t.name = s.name and s.yearid=t.yearid"
+    console.log(q);
+    this.sql.execute(q).done(function (data) {
+        data.rows.forEach(function (r) {
+            console.log(r);
+        });
+        if (cb) cb(null, data.rows);
+    });
+
+}
 //get average attendence per game for selected team/year
 MlbMap.prototype.getAttPerGame = function (team, year, cb) {
     var q = "select FLOOR(avg(attendance)/81) as avg From mlb_teams  "
     q += "WHERE name= '" + team + "'";
     q += " and yearid = "+year;
+    console.log(q);
+    this.sql.execute(q).done(function (data) {
+        data.rows.forEach(function (r) {
+            console.log(r);
+        });
+        if (cb) cb(null, data.rows);
+    });
+
+}
+//get average attendence per game for selected team/year
+MlbMap.prototype.getAttPerGameYear = function (year, cb) {
+    var q = "select FLOOR(avg(attendance)/81) as avg From mlb_teams  "
+    q += "WHERE yearid = "+year;
     console.log(q);
     this.sql.execute(q).done(function (data) {
         data.rows.forEach(function (r) {
@@ -119,7 +162,7 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
             center: [35, -94],
             scrollwheel: false,
             zoom: 3,
-            cartodb_logo: false
+            cartodb_logo: self.logo
         })
         .done(function (vis, layers) {
             // layer 0 is the base layer, layer 1 is cartodb layer
