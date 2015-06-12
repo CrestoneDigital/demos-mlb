@@ -88,7 +88,7 @@ $(function () {
                             m.getTeamWins(data[0].name, graph.year1, function (err, data) {
                                 if (err) {} else {
                                     //update polar data[1]
-<<<<<<< HEAD
+
                                     polarGraph1.polarData[0].value = polarGraph1.dataUpdate(data)
 
                                     m.getMoneyPerWin(data[0].name, graph.year1, function (err, data) {
@@ -103,15 +103,7 @@ $(function () {
                                             polarGraph2.drawPolarGraph('polar2');
                                         }
                                     })
-=======
-                                    polarGraph1.dataUpdate1(data)
-                                    //Create new html canvas element for linechart
-                                    $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
-                                    //Draw polar graph on new canvas element
-                                    polarGraph1.drawPolarGraph('polar1');
-                                    
 
->>>>>>> origin/master
                                 }
                             })
 
