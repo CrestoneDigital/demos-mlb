@@ -1,11 +1,13 @@
 $(function () {
+    var colorMap1='#D6301D';
+    var colorMap2='#3E7BB6';
     m = new MlbMap({
         user: 'crestonedigital'
-    },'#B81609');
+    },colorMap1,true);
     
     p = new MlbMap({
         user: 'crestonedigital'
-    },'#3E7BB6');
+    },colorMap2,false);
 
 
     //Create new slider
