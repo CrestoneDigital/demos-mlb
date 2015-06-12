@@ -6,7 +6,7 @@ $(function () {
     p = new MlbMap({
         user: 'crestonedigital'
     }, '#3E7BB6');
-
+    
     //draw polar area graph1
     polarGraph1 = new PolarGraph();
     polarGraph1.drawPolarGraph("polar1");
@@ -40,8 +40,10 @@ $(function () {
                     graph.drawGraph("lineChart");
                     m.updateMap(graph.year1);
                     p.updateMap(graph.year2);
-
-
+                    document.getElementById("totalWins1").innerHTML = graph.year1;
+                    document.getElementById("totalWins2").innerHTML = graph.year2;
+                    document.getElementById("costWin1").innerHTML = graph.year1;
+                    document.getElementById("costWin2").innerHTML = graph.year2;
                 }
 
             })
@@ -69,6 +71,7 @@ $(function () {
 
                 //Left map onclick function
                 m.on('featureClick', function (data) {
+                    //document.getElementById("team1").innerHTML ="Total Wins for year "+ data.yearid;
                     m.getTeamSalaries(data.name, function (err, data) {
                         if (err) {} else {
                             console.log(data);
@@ -86,7 +89,7 @@ $(function () {
                                     $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
                                     //Draw polar graph on new canvas element
                                     polarGraph1.drawPolarGraph('polar1');
-
+                                    
 
                                 }
                             })
@@ -96,6 +99,8 @@ $(function () {
                 });
                 //Right Map onclick functions
                 p.on('featureClick', function (data) {
+                    //document.getElementById("team2").innerHTML = data.yearid;  
+                    //$('team1').html(data.name);
                     p.getTeamSalaries(data.name, function (err, data) {
                         if (err) {} else {
                             lineData.datasets[2].data = graph.getData(data);

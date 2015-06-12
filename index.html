@@ -7,12 +7,14 @@
  
     <!-- CSS Files -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.14/themes/css/cartodb.css" />
     <link href="css/ion.rangeSlider.css" rel="stylesheet">
     <link href="css/ion.rangeSlider.skinSimple.css" rel="stylesheet">
+
     
    <style>
       #map,#map1 {
@@ -43,13 +45,32 @@
     <!-- Main Body and Charts -->
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>MLB Salaries</h2>
+            <h2 class="pull-left">MLB Salaries</h2>
+            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal2">
+            About Project
+            </button>
         </div>
         
     </div>
-    <div>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5"> Modal </button>
-        </div>
+        
+    
+            
+            <div class="modal inmodal fade" id="modal2" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title">MLB</h4> 
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>data</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+    
+    
     
         <div class="row">
             <div class="col-lg-12">
@@ -87,6 +108,26 @@
                                     <canvas id="lineChart"></canvas> 
                                 </td>
                             </tr>
+                            
+                        <tr>
+                            <td id="canvas" colspan="2">
+                                <div>
+                                    <h1 class="text-center">Total Wins</H1>  
+                                </div>
+                             </td>
+                         </tr>
+                           
+                    
+                        <div>
+                            <tr>
+                                <td>
+                                    <center><h2 id="totalWins1">2000</h2></center>
+                                </td>
+                                <td>
+                                    <center><h2 id="totalWins2">2014</h2></center>
+                                </td>
+                            </tr>
+                       </div> 
                             <tr>
                                 <td>
                                     <canvas id="polar1"></canvas>
@@ -95,6 +136,25 @@
                                     <canvas id="polar2"></canvas>
                                 </td>
                             </tr>
+                            <tr>
+                            <td id="canvas" colspan="2">
+                                <div>
+                                    <h1 class="text-center">Cost per Win</H1>  
+                                </div>
+                             </td>
+                         </tr>
+                           
+                    
+                        <div>
+                            <tr>
+                                <td>
+                                    <center><h2 id="costWin1">2000</h2></center>
+                                </td>
+                                <td>
+                                    <center><h2 id="costWin2">2014</h2></center>
+                                </td>
+                            </tr>
+                       </div> 
                         </tbody>
                     </table>
                 </div>
@@ -120,7 +180,7 @@
     <!-- Javscript for Polar Graphs -->
     <script src="js/polarGraph.js"></script>
     
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/jquery.metisMenu.js"></script>
     
     <!-- Javascript Controller Function -->
     <script src="js/controller.js"></script>
