@@ -27,6 +27,7 @@ $(function () {
                 min_interval: 1,
                 grid: true,
                 grid_snap: true,
+                //Function fires on release of slider
                 onFinish: function (data) {
                     graph.year1 = data.fromNumber;
                     graph.year2 = data.toNumber;
@@ -34,7 +35,7 @@ $(function () {
                     //Create new html canvas element
                     $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
                     //Truncate data to appropriate years
-                    lineData.datasets[0].data = graph.cutData();
+                    lineData.labels=graph.getLabels();
                     //Draw map on new canvas element
                     graph.drawGraph("lineChart");
                     m.updateMap(graph.year1);
@@ -50,7 +51,8 @@ $(function () {
         //Get starting data for entire league
         m.getMlbAvgSalary(function (err, data) {
             if (err) {} else {
-                lineData.datasets[1].data = graph.getData(data);
+                globalAvgSalary=graph.getData(data);
+                lineData.datasets[1].data = globalAvgSalary;
 
                 //draw salary graph
                 graph.drawGraph("lineChart");

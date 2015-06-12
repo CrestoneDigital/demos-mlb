@@ -72,16 +72,3 @@ GraphInput.prototype.getData = function (teamArray) {
     }
     return salaryArray;
 }
-
-GraphInput.prototype.cutData = function () {
-    cutSalary = [];
-    endIndex = this.year2 - 2000;
-    startIndex = this.year1 - 2000;
-    i = 0;
-    for (; startIndex <=endIndex; startIndex++) {
-        cutSalary[i] = salaryArray[startIndex];
-        i++;
-    }
-    lineData.labels=this.getLabels();
-    return cutSalary;
-}
