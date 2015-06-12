@@ -36,7 +36,16 @@
          responsive: true,
      }
  };
- PolarGraph.prototype.drawPolarGraph = function (elementID) {
-     var ctx = document.getElementById(elementID).getContext("2d");
-     var myNewChart = new Chart(ctx).PolarArea(this.polarData, this.polarOptions);
- }
+
+PolarGraph.prototype.dataUpdate = function (team,year) {
+
+        m.getTeamWins(team, year, function (err, data) {
+                if (err) {} else {
+                    console.log(data);
+                    this.polarData[0].value=data[0].avg;
+                }})
+        }
+PolarGraph.prototype.drawPolarGraph = function (elementID) {
+            var ctx = document.getElementById(elementID).getContext("2d");
+            var myNewChart = new Chart(ctx).PolarArea(this.polarData, this.polarOptions);
+        }

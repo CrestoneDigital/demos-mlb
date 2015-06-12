@@ -128,7 +128,6 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
             self.layerPtr = layers[1].getSubLayer(0);
            
             //this.layerPtr.setSQL(sql);
-        console.log(this.cartoCssTpl);
             self.layerPtr.set({
                 sql: self.sqlTpl.replace('{{year}}', year),
                 cartocss: self.cartoCssTpl
