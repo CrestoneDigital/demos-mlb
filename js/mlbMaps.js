@@ -44,7 +44,7 @@ MlbMap.prototype.getTeamSalaries = function (team, cb) {
 }
 //get team's wins for selected year
 MlbMap.prototype.getTeamWins = function (team, year, cb) {
-    var q = "select avg(w) from mlb_teams "
+    var q = "select avg(w),name from mlb_teams "
     q += "WHERE name = '" + team + "'";
     q += " and yearid = "+year;
     q += " group by yearid, name"
