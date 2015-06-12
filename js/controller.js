@@ -35,7 +35,9 @@ $(function () {
                     //Create new html canvas element
                     $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
                     //Truncate data to appropriate years
-                    lineData.labels=graph.getLabels();
+                    graph.cutData()
+                        //Set Labels on Graph
+                    lineData.labels = graph.getLabels();
                     //Draw map on new canvas element
                     graph.drawGraph("lineChart");
                     m.updateMap(graph.year1);
@@ -51,8 +53,9 @@ $(function () {
         //Get starting data for entire league
         m.getMlbAvgSalary(function (err, data) {
             if (err) {} else {
-                globalAvgSalary=graph.getData(data);
+                globalAvgSalary = graph.getData(data);
                 lineData.datasets[1].data = globalAvgSalary;
+                
 
                 //draw salary graph
                 graph.drawGraph("lineChart");
@@ -73,21 +76,29 @@ $(function () {
                         if (err) {} else {
                             console.log(data);
                             lineData.datasets[0].data = graph.getData(data);
+                            lineData2 = lineData;
                             //Create new html canvas element for linechart
                             $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
                             //Draw map on new canvas element for linechart
                             graph.drawGraph("lineChart");
-                            
+
                             m.getTeamWins(data[0].name, graph.year1, function (err, data) {
                                 if (err) {} else {
                                     //update polar data[1]
-                                    polarGraph1.dataUpdate1(data)
-                                    //Create new html canvas element for linechart
-                                    $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
-                                    //Draw polar graph on new canvas element
-                                    polarGraph1.drawPolarGraph('polar1');
+                                    polarGraph1.polarData[0].value = polarGraph1.dataUpdate(data)
 
-
+                                    m.getMoneyPerWin(data[0].name, graph.year1, function (err, data) {
+                                        if (err) {} else {
+                                            console.log(data);
+                                            polarGraph2.polarData[0].value = polarGraph2.dataUpdate(data)
+                                                //Create new html canvas element for polar data
+                                            $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
+                                            $('#polar2').replaceWith('<canvas id="polar2"></canvas>');
+                                            //Draw polar graph on new canvas element
+                                            polarGraph1.drawPolarGraph('polar1');
+                                            polarGraph2.drawPolarGraph('polar2');
+                                        }
+                                    })
                                 }
                             })
 
@@ -99,6 +110,7 @@ $(function () {
                     p.getTeamSalaries(data.name, function (err, data) {
                         if (err) {} else {
                             lineData.datasets[2].data = graph.getData(data);
+                            lineData2 = lineData;
                             //Create new html canvas element
                             $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
                             //Draw map on new canvas element
@@ -107,13 +119,21 @@ $(function () {
                             p.getTeamWins(data[0].name, graph.year1, function (err, data) {
                                 if (err) {} else {
                                     //update polar data[2]
-                                    polarGraph1.dataUpdate2(data)
-                                    //Create new html canvas element for linechart
-                                    $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
-                                    //Draw polar graph on new canvas element
-                                    polarGraph1.drawPolarGraph('polar1');
+                                    polarGraph1.polarData[2].value = polarGraph1.dataUpdate(data)
+
+                                    p.getMoneyPerWin(data[0].name, graph.year2, function (err, data) {
+                                        if (err) {} else {
+                                            console.log(data);
+                                            polarGraph2.polarData[2].value = polarGraph2.dataUpdate(data)
+                                            $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
+                                            $('#polar2').replaceWith('<canvas id="polar2"></canvas>');
+                                            //Draw polar graph on new canvas element
+                                            polarGraph1.drawPolarGraph('polar1');
+                                            polarGraph2.drawPolarGraph('polar2');
 
 
+                                        }
+                                    })
                                 }
                             })
 

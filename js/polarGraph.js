@@ -7,15 +7,15 @@
              label: "Team 1 Wins"
         },
          {
-             value: 0,
+             value: 81,
              color: "#dedede",
              highlight: "#1ab394",
-             label: "Team 2 Wins"
+             label: "Yearly Win Average"
         },
          {
-             value:81,
-             color:"#fff000",
-             label:"Yearly Win Average"
+             value: 0,
+             color: "#fff000",
+             label: "Team 2 Win Average"
          }
     ];
      this.polarOptions = {
@@ -36,18 +36,13 @@
      }
  };
 
- PolarGraph.prototype.dataUpdate1 = function (data) {
+ PolarGraph.prototype.dataUpdate = function (data) {
      console.log(data);
      finalData = data[0].avg;
-     polarGraph1.polarData[0].value = finalData;
- }
- 
-  PolarGraph.prototype.dataUpdate2 = function (data) {
-     console.log(data);
-     finalData = data[0].avg;
-     polarGraph1.polarData[1].value = finalData;
+     return finalData;
  }
 
+ 
  PolarGraph.prototype.drawPolarGraph = function (elementID) {
      var cvs = document.getElementById(elementID)
      ctx = cvs.getContext("2d");

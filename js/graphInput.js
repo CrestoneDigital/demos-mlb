@@ -16,7 +16,7 @@ var GraphInput = function (year1, year2) {
                 data: []
             },
             {
-                label:"Avg Salary Data",
+                label: "Avg Salary Data",
                 fillColor: "rgba(168,178,189,0.3)",
                 strokeColor: "rgba(220,220,220,1)",
                 pointColor: "rgba(220,220,220,1)",
@@ -26,18 +26,18 @@ var GraphInput = function (year1, year2) {
                 data: []
             },
             {
-                label:"Team 2 Salary Data",
+                label: "Team 2 Salary Data",
                 fillColor: "rgba(100,100,100,0.3)",
                 strokeColor: "rgba(220,220,220,1)",
                 pointColor: "rgba(220,220,220,1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(220,220,220,1)",
-                data: []   
+                data: []
             }
         ]
     };
-
+lineData2 = lineData;
     lineOptions = {
         scaleShowGridLines: true,
         scaleGridLineColor: "rgba(0,0,0,.05)",
@@ -75,11 +75,37 @@ GraphInput.prototype.drawGraph = function (canvasId) {
     }
     //passed an array of object with properties name, yearid, avg
 GraphInput.prototype.getData = function (teamArray) {
+    //This function works for teams that start later than 2000
     salaryArray = [];
-    var end = this.year2 - 2000;
-    var i = this.year1 - 2000;
-    for (i = 0; i <= end; i++) {
+    var end = teamArray.length - 1;
+    var i = 0;
+    if (teamArray[0].yearid != 2000) {
+        finish = teamArray[0].yearid - 2000;
+        for (j = 0; j < finish; j++) {
+            salaryArray[j] = 0;
+        }
+        i = finish;
+        end = end + i;
+        teamArray = salaryArray.concat(teamArray);
+    }
+    for (; i <= end; i++) {
         salaryArray[i] = teamArray[i].avg;
     }
     return salaryArray;
+}
+
+GraphInput.prototype.cutData = function () {
+    var newSalary = [];
+    var start = this.year1 - 2000;
+    var end = this.year2 - 2000;
+    for (i = 0; i < 3; i++) {
+        if (lineData2.datasets[i].data.length !== 0) {
+            j = 0;
+            for (; start <= end; start++) {
+                newSalary[j] = lineData2.datasets[i].data[start];
+                j++;
+            }
+            lineData.datasets[i].data=newSalary;
+        }
+    }
 }
