@@ -1,12 +1,15 @@
 $(function () {
+    
+    // Left Map
     m = new MlbMap({
         user: 'crestonedigital'
     }, '#B81609');
 
+    // Right Map
     p = new MlbMap({
         user: 'crestonedigital'
     }, '#3E7BB6');
-    
+
     //draw polar area graph1
     polarGraph1 = new PolarGraph();
     polarGraph1.drawPolarGraph("polar1");
@@ -15,52 +18,56 @@ $(function () {
     polarGraph2 = new PolarGraph();
     polarGraph2.drawPolarGraph("polar2");
 
-
-    //Create new slider
+    graph = null;
+    globalAvgSalary = null;
+    
+    // Create new slider
     m.getYearRanges(function (err, data) {
         $(slide).ionRangeSlider({
-                type: "double",
-                min: data[0].min,
-                max: data[0].max,
-                from: data[0].min,
-                to: data[0].max,
-                min_interval: 1,
-                grid: true,
-                grid_snap: true,
-                //Function fires on release of slider
-                onFinish: function (data) {
-                    graph.year1 = data.fromNumber;
-                    graph.year2 = data.toNumber;
+            type: "double",
+            min: data[0].min,
+            max: data[0].max,
+            from: data[0].min,
+            to: data[0].max,
+            min_interval: 1,
+            grid: true,
+            grid_snap: true,
+            //Function fires on release of slider
+            onFinish: function (data) {
+                graph.year1 = data.fromNumber;
+                graph.year2 = data.toNumber;
 
-                    //Create new html canvas element
-                    $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
-                    //Truncate data to appropriate years
-                    graph.cutData()
-                        //Set Labels on Graph
-                    lineData.labels = graph.getLabels();
-                    //Draw map on new canvas element
-                    graph.drawGraph("lineChart");
-                    m.updateMap(graph.year1);
-                    p.updateMap(graph.year2);
-                    document.getElementById("totalWins1").innerHTML = graph.year1;
-                    document.getElementById("totalWins2").innerHTML = graph.year2;
-                    document.getElementById("costWin1").innerHTML = graph.year1;
-                    document.getElementById("costWin2").innerHTML = graph.year2;
+                //Create new html canvas element
+                $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
+
+                m.getMlbAvgSalary(function(err, data) {
+                if (err) {} else {
+                console.log(data);
+                     //Draw line Chart on new canvas element
+                graph.render(data,"lineChart");
+                
+                //Re-render Maps
+                m.updateMap(graph.year1);
+                p.updateMap(graph.year2);
+                document.getElementById("totalWins1").innerHTML = graph.year1;
+                document.getElementById("totalWins2").innerHTML = graph.year2;
+                document.getElementById("costWin1").innerHTML = graph.year1;
+                document.getElementById("costWin2").innerHTML = graph.year2;  
                 }
+                });   
+            }
 
-            })
-            // Create Graph Object        
+        })
+
+        // Create Graph Object        
         graph = new GraphInput(data[0].min, data[0].max);
 
-        //Get starting data for entire league
+        //Get starting data for entire league for graph
         m.getMlbAvgSalary(function (err, data) {
             if (err) {} else {
-                globalAvgSalary = graph.getData(data);
-                lineData.datasets[1].data = globalAvgSalary;
-                
 
                 //draw salary graph
-                graph.drawGraph("lineChart");
+                graph.render(data,"lineChart");
 
                 //Draw Maps
                 m.createMap(graph.year1, 'map', function (viz) {
@@ -79,11 +86,10 @@ $(function () {
                         if (err) {} else {
                             console.log(data);
                             lineData.datasets[0].data = graph.getData(data);
-                            lineData2 = lineData;
                             //Create new html canvas element for linechart
                             $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
                             //Draw map on new canvas element for linechart
-                            graph.drawGraph("lineChart");
+                            graph.render("lineChart");
 
                             m.getTeamWins(data[0].name, graph.year1, function (err, data) {
                                 if (err) {} else {
@@ -117,11 +123,10 @@ $(function () {
                     p.getTeamSalaries(data.name, function (err, data) {
                         if (err) {} else {
                             lineData.datasets[2].data = graph.getData(data);
-                            lineData2 = lineData;
                             //Create new html canvas element
                             $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
                             //Draw map on new canvas element
-                            graph.drawGraph("lineChart");
+                            graph.render("lineChart");
 
                             p.getTeamWins(data[0].name, graph.year1, function (err, data) {
                                 if (err) {} else {

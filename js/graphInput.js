@@ -2,7 +2,7 @@ var GraphInput = function (year1, year2) {
     this.year1 = year1;
     this.year2 = year2;
 
-    lineData = {
+    this.lineData = {
         labels: this.getLabels(),
         datasets: [
             {
@@ -37,8 +37,8 @@ var GraphInput = function (year1, year2) {
             }
         ]
     };
-lineData2 = lineData;
-    lineOptions = {
+
+    this.lineOptions = {
         scaleShowGridLines: true,
         scaleGridLineColor: "rgba(0,0,0,.05)",
         scaleGridLineWidth: 1,
@@ -55,6 +55,17 @@ lineData2 = lineData;
     };
 };
 
+GraphInput.prototype.render = function (data,canvasId) {
+        this.lineData.datasets[1].data = this.getData(data);
+        this.lineData.datasets[1].data=this.cutData(this.lineData.datasets[1].data);
+        this.lineData.datasets[1].labels=this.getLabels();
+        var cvs = document.getElementById(canvasId)
+        ctx = cvs.getContext("2d");
+        ctx.canvas.height = 50;
+        myNewChart = new Chart(ctx).Line(this.lineData, this.lineOptions);
+
+    }
+
 GraphInput.prototype.getLabels = function () {
     var labels = [];
     var end = this.year2 - this.year1;
@@ -66,13 +77,6 @@ GraphInput.prototype.getLabels = function () {
     return labels;
 }
 
-GraphInput.prototype.drawGraph = function (canvasId) {
-        var cvs = document.getElementById(canvasId)
-        ctx = cvs.getContext("2d");
-        ctx.canvas.height = 50;
-        myNewChart = new Chart(ctx).Line(lineData, lineOptions);
-
-    }
     //passed an array of object with properties name, yearid, avg
 GraphInput.prototype.getData = function (teamArray) {
     //This function works for teams that start later than 2000
@@ -99,13 +103,13 @@ GraphInput.prototype.cutData = function () {
     var start = this.year1 - 2000;
     var end = this.year2 - 2000;
     for (i = 0; i < 3; i++) {
-        if (lineData2.datasets[i].data.length !== 0) {
+        if (this.lineData.datasets[i].data.length !== 0) {
             j = 0;
             for (; start <= end; start++) {
-                newSalary[j] = lineData2.datasets[i].data[start];
+                newSalary[j] = this.lineData.datasets[i].data[start];
                 j++;
             }
-            lineData.datasets[i].data=newSalary;
+            return newSalary;
         }
     }
 }
