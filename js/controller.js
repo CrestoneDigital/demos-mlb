@@ -1,17 +1,25 @@
 $(function () {
     m = new MlbMap({
         user: 'crestonedigital'
-    },'#B81609');
-    
+    }, '#B81609');
+
     p = new MlbMap({
         user: 'crestonedigital'
-    },'#3E7BB6');
+    }, '#3E7BB6');
+
+    //draw polar area graph1
+    polarGraph1 = new PolarGraph();
+    polarGraph1.drawPolarGraph("polar1");
+
+    //draw polar area graph2
+    polarGraph2 = new PolarGraph();
+    polarGraph2.drawPolarGraph("polar2");
 
 
     //Create new slider
     m.getYearRanges(function (err, data) {
-        $(slide).ionRangeSlider({
-            type: "double",
+                $(slide).ionRangeSlider({
+                            type: "double",
           min: data[0].min,
           max: data[0].max,
           from: data[0].min,
@@ -57,8 +65,8 @@ $(function () {
                     })
                 });
                 
-                //Right map onclick function
-                m.on('featureClick', function (data) {
+                //Left map onclick function
+               /* m.on('featureClick', function (data) {
                             m.getTeamSalaries(data.name, function (err, data) {
                                 if (err) {} else {
                                     console.log(data);
@@ -68,16 +76,16 @@ $(function () {
                                     //Draw map on new canvas element for linechart
                                     graph.drawGraph("lineChart");
                                     //Update polar data
-                                    polarGraph1.dataUpdate(data[0].name,graph.year1)
+                                    polarGraph1.polarData[0].value=polarGraph1.dataUpdate(data[0].name,graph.year1)
                                     //Create new html canvas element for linechart
-                                    $(polarGraph1).replaceWith('<canvas id="polarGraph1"></canvas>');
+                                    $(polar1).replaceWith('<canvas id="polar1"></canvas>');
                                     //Draw polar graph on new canvas element
-                                    polarGraph1.drawPolarGraph(polarGraph1);
+                                    polarGraph1.drawPolarGraph(polar1);;
                                     
                                 }
                             })
-                        });
-                //Left Map onclick functions
+                        });*/
+                //Right Map onclick functions
                 p.on('featureClick', function (data) {
                             p.getTeamSalaries(data.name, function (err, data) {
                                 if (err) {} else {
@@ -87,21 +95,14 @@ $(function () {
                                     //Draw map on new canvas element
                                     graph.drawGraph("lineChart");
                                     //Update polar data
-                                    polarGraph1.dataUpdate(data[0].name,graph.year1)
+                                    polarGraph1.polarData[0].value=polarGraph1.dataUpdate(data[0].name,graph.year1)
                                     //Create new html canvas element for linechart
-                                    $(polarGraph1).replaceWith('<canvas id="polarGraph1"></canvas>');
+                                   $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
                                     //Draw polar graph on new canvas element
-                                    polarGraph1.drawPolarGraph(polarGraph1);;
+                                    polarGraph1.drawPolarGraph('polar1');
                                 }
                             })
-                        });  
-                //draw polar area graph1
-                polarGraph1=new PolarGraph();
-                polarGraph1.drawPolarGraph("polar1");
-                
-                //draw polar area graph2
-                polarGraph2=new PolarGraph();
-                polarGraph2.drawPolarGraph("polar2");
+                        }); 
             }
         })
     })

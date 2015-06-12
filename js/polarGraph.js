@@ -37,15 +37,17 @@
      }
  };
 
-PolarGraph.prototype.dataUpdate = function (team,year) {
-
+PolarGraph.prototype.dataUpdate = function (team,year,elementID) {
+        var finalData = undefined;
         m.getTeamWins(team, year, function (err, data) {
                 if (err) {} else {
                     console.log(data);
-                    this.polarData[0].value=data[0].avg;
+                    finalData=data[0].avg;
                 }})
+        return finalData;
         }
 PolarGraph.prototype.drawPolarGraph = function (elementID) {
-            var ctx = document.getElementById(elementID).getContext("2d");
-            var myNewChart = new Chart(ctx).PolarArea(this.polarData, this.polarOptions);
+      var cvs = document.getElementById(elementID)
+        ctx = cvs.getContext("2d");
+        var NewChart = new Chart(ctx).PolarArea(this.polarData, this.polarOptions);
         }
