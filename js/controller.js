@@ -98,7 +98,7 @@ $(function () {
                 p.on('featureClick', function (data) {
                     p.getTeamSalaries(data.name, function (err, data) {
                         if (err) {} else {
-                            lineData.datasets[0].data = graph.getData(data);
+                            lineData.datasets[2].data = graph.getData(data);
                             //Create new html canvas element
                             $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
                             //Draw map on new canvas element

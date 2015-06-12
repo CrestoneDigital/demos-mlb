@@ -6,7 +6,7 @@ var GraphInput = function (year1, year2) {
         labels: this.getLabels(),
         datasets: [
             {
-                label: " Team Salary Data",
+                label: " Team 1 Salary Data",
                 fillColor: "rgba(220,220,220,0.5)",
                 strokeColor: "rgba(220,220,220,1)",
                 pointColor: "rgba(220,220,220,1)",
@@ -24,7 +24,18 @@ var GraphInput = function (year1, year2) {
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(220,220,220,1)",
                 data: []
-            }]
+            },
+            {
+                label:"Team 2 Salary Data",
+                fillColor: "rgba(100,100,100,0.3)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: []   
+            }
+        ]
     };
 
     lineOptions = {
