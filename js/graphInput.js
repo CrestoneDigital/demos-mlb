@@ -6,7 +6,7 @@ var GraphInput = function (year1, year2) {
         labels: this.getLabels(),
         datasets: [
             {
-                label: " Team 1 Salary Data",
+                label: " Avg Salary Data",
                 fillColor: "rgba(220,220,220,0.5)",
                 strokeColor: "rgba(220,220,220,1)",
                 pointColor: "rgba(220,220,220,1)",
@@ -16,7 +16,7 @@ var GraphInput = function (year1, year2) {
                 data: []
             },
             {
-                label: "Avg Salary Data",
+                label: "Team 1 Salary Data",
                 fillColor: "rgba(168,178,189,0.3)",
                 strokeColor: "rgba(220,220,220,1)",
                 pointColor: "rgba(220,220,220,1)",
@@ -55,10 +55,11 @@ var GraphInput = function (year1, year2) {
     };
 };
 
-GraphInput.prototype.render = function (data,canvasId) {
-        this.lineData.datasets[1].data = this.getData(data);
-        this.lineData.datasets[1].data=this.cutData(this.lineData.datasets[1].data);
-        this.lineData.datasets[1].labels=this.getLabels();
+
+GraphInput.prototype.render = function (data,canvasId,lineID) {
+        this.lineData.datasets[lineID].data = this.getData(data);
+        this.cutData(this.lineData.datasets[lineID].data);
+        this.lineData.labels=this.getLabels();
         var cvs = document.getElementById(canvasId)
         ctx = cvs.getContext("2d");
         ctx.canvas.height = 50;
@@ -99,17 +100,17 @@ GraphInput.prototype.getData = function (teamArray) {
 }
 
 GraphInput.prototype.cutData = function () {
-    var newSalary = [];
-    var start = this.year1 - 2000;
     var end = this.year2 - 2000;
     for (i = 0; i < 3; i++) {
         if (this.lineData.datasets[i].data.length !== 0) {
+            var newSalary = [];
+            var start = this.year1 - 2000;
             j = 0;
             for (; start <= end; start++) {
                 newSalary[j] = this.lineData.datasets[i].data[start];
                 j++;
             }
-            return newSalary;
+            this.lineData.datasets[i].data=newSalary
         }
     }
 }
