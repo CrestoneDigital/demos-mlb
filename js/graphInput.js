@@ -7,9 +7,9 @@ var GraphInput = function (year1, year2) {
         datasets: [
             {
                 label: " Avg Salary Data",
-                fillColor: "rgba(220,220,220,0.5)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,2)",
+                pointColor: "rgba(220,220,220,.2)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(220,220,220,1)",
@@ -17,9 +17,9 @@ var GraphInput = function (year1, year2) {
             },
             {
                 label: "Team 1 Salary Data",
-                fillColor: "rgba(168,178,189,0.3)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
+                fillColor: "rgba(168,178,189,0)",
+                strokeColor: "rgba(255,0,0,1)",
+                pointColor: "rgba(255,0,0,1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(220,220,220,1)",
@@ -27,12 +27,12 @@ var GraphInput = function (year1, year2) {
             },
             {
                 label: "Team 2 Salary Data",
-                fillColor: "rgba(100,100,100,0.3)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
+                fillColor: "rgba(100,100,100,0)",
+                strokeColor: "rgba(0,0,255,1)",
+                pointColor: "rgba(0,0,255,1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
+                pointHighlightStroke: "rgba(0,0,255,1)",
                 data: []
             }
         ]
@@ -56,16 +56,16 @@ var GraphInput = function (year1, year2) {
 };
 
 
-GraphInput.prototype.render = function (data,canvasId,lineID) {
-        this.lineData.datasets[lineID].data = this.getData(data);
-        this.cutData(this.lineData.datasets[lineID].data);
-        this.lineData.labels=this.getLabels();
-        var cvs = document.getElementById(canvasId)
-        ctx = cvs.getContext("2d");
-        ctx.canvas.height = 50;
-        myNewChart = new Chart(ctx).Line(this.lineData, this.lineOptions);
+GraphInput.prototype.render = function (data, canvasId, lineID) {
+    this.getData(data, lineID);
+    this.cutData(lineID);
+    this.lineData.labels = this.getLabels();
+    var cvs = document.getElementById(canvasId)
+    ctx = cvs.getContext("2d");
+    ctx.canvas.height = 50;
+    myNewChart = new Chart(ctx).Line(this.lineData, this.lineOptions);
 
-    }
+}
 
 GraphInput.prototype.getLabels = function () {
     var labels = [];
@@ -78,8 +78,8 @@ GraphInput.prototype.getLabels = function () {
     return labels;
 }
 
-    //passed an array of object with properties name, yearid, avg
-GraphInput.prototype.getData = function (teamArray) {
+//passed an array of object with properties name, yearid, avg
+GraphInput.prototype.getData = function (teamArray, lineID) {
     //This function works for teams that start later than 2000
     salaryArray = [];
     var end = teamArray.length - 1;
@@ -96,21 +96,25 @@ GraphInput.prototype.getData = function (teamArray) {
     for (; i <= end; i++) {
         salaryArray[i] = teamArray[i].avg;
     }
-    return salaryArray;
+    this.lineData.datasets[lineID].data = salaryArray;
 }
 
-GraphInput.prototype.cutData = function () {
+GraphInput.prototype.cutData = function (lineID) {
     var end = this.year2 - 2000;
-    for (i = 0; i < 3; i++) {
-        if (this.lineData.datasets[i].data.length !== 0) {
-            var newSalary = [];
-            var start = this.year1 - 2000;
-            j = 0;
-            for (; start <= end; start++) {
-                newSalary[j] = this.lineData.datasets[i].data[start];
-                j++;
-            }
-            this.lineData.datasets[i].data=newSalary
+    var newSalary = [];
+    if (this.lineData.datasets[lineID].data.length !== 0) {
+        var start = this.year1 - 2000;
+        j = 0;
+        for (; start <= end; start++) {
+            newSalary[j] = this.lineData.datasets[lineID].data[start];
+            j++;
         }
+        this.lineData.datasets[lineID].data = newSalary;
     }
+}
+
+// Adds data without re-rendering the chart
+GraphInput.prototype.refreshData = function (data, lineID) {
+    this.getData(data, lineID);
+    this.cutData(lineID);
 }
