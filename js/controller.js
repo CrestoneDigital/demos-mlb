@@ -1,28 +1,27 @@
 $(function () {
 
     // Left Map
-    m = new MlbMap({
+    var m = new MlbMap({
         user: 'crestonedigital'
     }, '#B81609');
 
     // Right Map
-    p = new MlbMap({
+    var p = new MlbMap({
         user: 'crestonedigital'
     }, '#3E7BB6');
 
     //draw polar area graph1
-    polarGraph1 = new PolarGraph();
+    var polarGraph1 = new PolarGraph();
     polarGraph1.drawPolarGraph("polar1");
 
     //draw polar area graph2
-    polarGraph2 = new PolarGraph();
+    var polarGraph2 = new PolarGraph();
     polarGraph2.drawPolarGraph("polar2");
 
     //Declarations     
     var graph = new GraphInput(undefined, undefined);
-    globalAvgColor = "#859494";
-    currentTeam1=undefined;
-    currentTeam2=undefined;
+    var currentTeam1=undefined;
+    var currentTeam2=undefined;
 
     // Create new slider
     m.getYearRanges(function (err, data) {
@@ -51,18 +50,21 @@ $(function () {
                     if (err) {} else {
                         console.log(data);
                         graph.refreshData(data, 0);
-
-                        //Get team1 name
-
+                        
                         m.getTeamSalaries(currentTeam1, function (err, data) {
                             if (err) {} else {
-                                graph.refreshData(data, 1);
+                                if(currentTeam1 !== undefined){
+                                    graph.refreshData(data, 1);
+                                }
                             }
                             m.getTeamSalaries(currentTeam2, function (err, data) {
                                 if (err) {} else {
                                     //Create new html canvas element
                                     $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
-                                    graph.render(data, "lineChart", 2);
+                                    if(currentTeam2 !== undefined){
+                                        graph.refreshData(data, 2);
+                                    }
+                                    graph.render("lineChart");
                                 }
                             })
                         })
@@ -80,7 +82,8 @@ $(function () {
             if (err) {} else {
 
                 //draw salary graph
-                graph.render(data, "lineChart", 0);
+                graph.refreshData(data,0);
+                graph.render("lineChart");
 
                 //Draw Maps
                 m.createMap(graph.year1, 'map', function (viz) {
@@ -99,18 +102,18 @@ $(function () {
                     $('#team1').addClass(data.name.toLowerCase().replace(/\ /g, '-'));
                     m.getTeamSalaries(data.name, function (err, data) {
                         if (err) {} else {
+                            console.log(data);
                             graph.refreshData(data, 1);
 
                             m.getTeamWins(currentTeam1, graph.year1, function (err, data) {
                                 if (err) {} else {
-                                    //update polar data[1]
 
-                                    polarGraph1.polarData[0].value = polarGraph1.dataUpdate(data)
+                                    //polarGraph1.polarData[0].value = polarGraph1.dataUpdate(data)
 
                                     m.getMoneyPerWin(currentTeam1, graph.year1, function (err, data) {
                                         if (err) {} else {
                                             console.log(data);
-                                            polarGraph2.polarData[0].value = polarGraph2.dataUpdate(data)
+                                            //polarGraph2.polarData[0].value = polarGraph2.dataUpdate(data)
                                                 //Create new html canvas element for polar data
                                             $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
                                             $('#polar2').replaceWith('<canvas id="polar2"></canvas>');
@@ -120,11 +123,11 @@ $(function () {
 
                                             m.getMlbAvgSalary(function (err, data) {
                                                 if (err) {} else {
-                                                    console.log(data);
+                                                    graph.refreshData(data,0);
                                                     //Create new html canvas element for linechart
                                                     $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
                                                     //Draw map on new canvas element for linechart
-                                                    graph.render(data, "lineChart", 0);
+                                                    graph.render("lineChart");
 
                                                 }
                                             })
@@ -152,12 +155,12 @@ $(function () {
                             p.getTeamWins(currentTeam2, graph.year1, function (err, data) {
                                 if (err) {} else {
                                     //update polar data[2]
-                                    polarGraph1.polarData[2].value = polarGraph1.dataUpdate(data)
+                                    //polarGraph1.polarData[2].value = polarGraph1.dataUpdate(data)
 
                                     p.getMoneyPerWin(currentTeam2, graph.year2, function (err, data) {
                                         if (err) {} else {
                                             console.log(data);
-                                            polarGraph2.polarData[2].value = polarGraph2.dataUpdate(data)
+                                            //polarGraph2.polarData[2].value = polarGraph2.dataUpdate(data)
                                                 //Create ne html canvas element
                                             $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
                                             $('#polar2').replaceWith('<canvas id="polar2"></canvas>');
@@ -171,7 +174,8 @@ $(function () {
                                                     //Create new html canvas element for linechart
                                                     $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
                                                     //Draw map on new canvas element for linechart
-                                                    graph.render(data, "lineChart", 0);
+                                                    graph.refreshData(data,0);
+                                                    graph.render("lineChart");
 
                                                 }
                                             })

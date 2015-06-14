@@ -4,8 +4,12 @@
 }
 
 .custom{
-    text-align: left;
-    font-weight: 400;
+    text-align: center;
+    font-weight: 600;
+}
+
+.custom2{
+    text-align: center;
 }
 
 #lineChart {
@@ -29,4 +33,8 @@
 .baltimore-orioles {
     background: url(../img/mlb/baltimore-orioles.svg) no-repeat;
     background-position: left center; 
+}
+
+#title{
+ text-align: center!important;   
 }

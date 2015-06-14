@@ -3,7 +3,7 @@ var GraphInput = function (year1, year2) {
     this.year2 = year2;
 
     this.lineData = {
-        labels: this.getLabels(),
+        labels: [],
         datasets: [
             {
                 label: " Avg Salary Data",
@@ -56,10 +56,8 @@ var GraphInput = function (year1, year2) {
 };
 
 
-GraphInput.prototype.render = function (data, canvasId, lineID) {
-    this.getData(data, lineID);
-    this.cutData(lineID);
-    this.lineData.labels = this.getLabels();
+GraphInput.prototype.render = function (canvasId) {
+    this.getLabels();
     var cvs = document.getElementById(canvasId)
     ctx = cvs.getContext("2d");
     ctx.canvas.height = 50;
@@ -75,7 +73,7 @@ GraphInput.prototype.getLabels = function () {
         labels[i] = Number(this.year1) + i;
         labels[i] = String(labels[i]);
     }
-    return labels;
+    this.lineData.labels= labels;
 }
 
 //passed an array of object with properties name, yearid, avg
