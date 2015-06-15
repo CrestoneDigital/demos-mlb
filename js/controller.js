@@ -23,15 +23,12 @@ $(function () {
     var currentTeam1 = undefined;
     var currentTeam2 = undefined;
 
-<<<<<<< HEAD
     graph = null;
     globalAvgSalary = null;
     
     previousTeam1=null;
     previousTeam2=null;
     
-=======
->>>>>>> origin/master
     // Create new slider
     m.getYearRanges(function (err, data) {
         $(slide).ionRangeSlider({
@@ -103,8 +100,8 @@ $(function () {
         })
 
         // Pass year range to graph object      
-        graph.year1 = data[0].min;
-        graph.year2 = data[0].max;
+//        graph.year1 = data[0].min;
+//        graph.year2 = data[0].max;
 
         //Render original lineGraph
         m.getMlbAvgSalary(function (err, data) {
@@ -127,7 +124,8 @@ $(function () {
                 //Left map onclick function
                 m.on('featureClick', function (data) {
                     $('#team1').removeClass(previousTeam1);
-                    $('#team1').html(data.name);
+                    currentTeam1=data.name;
+                    $('#team1').html(currentTeam1);
                     $('#team1').addClass(data.name.toLowerCase().replace(/\ /g, '-'));
                     previousTeam1=data.name.toLowerCase().replace(/\ /g, '-');
                     m.getTeamSalaries(data.name, function (err, data) {
@@ -168,7 +166,8 @@ $(function () {
                 //Right Map onclick functions
                 p.on('featureClick', function (data) {
                     $('#team2').removeClass(previousTeam2);
-                    $('#team2').html(data.name);
+                    currentTeam2=data.name;
+                    $('#team2').html(currentTeam2);
                     $('#team2').addClass(data.name.toLowerCase().replace(/\ /g, '-'));
                     previousTeam2=data.name.toLowerCase().replace(/\ /g, '-');
                     p.getTeamSalaries(data.name, function (err, data) {
