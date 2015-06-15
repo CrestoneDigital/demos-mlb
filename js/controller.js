@@ -201,8 +201,8 @@ $(function () {
         $('#team1').removeClass(previousTeam1);
         currentTeam1 = data.name;
         $('#team1').html(currentTeam1);
-        $('#team1').addClass(data.name.toLowerCase().replace(/\ /g, '-'));
-        previousTeam1 = data.name.toLowerCase().replace(/\ /g, '-');
+        $('#team1').addClass(data.name.toLowerCase().replace(/\ /g, '-').replace(/\./g, ""));
+        previousTeam1 = data.name.toLowerCase().replace(/\ /g, '-').replace(/\./g, "");
         m.getTeamSalaries(data.name, function (err, data) {
             if (err) {} else {
                 console.log(data);
@@ -257,8 +257,8 @@ $(function () {
         $('#team2').removeClass(previousTeam2);
         currentTeam2 = data.name;
         $('#team2').html(currentTeam2);
-        $('#team2').addClass(data.name.toLowerCase().replace(/\ /g, '-'));
-        previousTeam2 = data.name.toLowerCase().replace(/\ /g, '-');
+        $('#team2').addClass(data.name.toLowerCase().replace(/\ /g, '-').replace(/\./g, ""));
+        previousTeam2 = data.name.toLowerCase().replace(/\ /g, '-').replace(/\./g, "");
         p.getTeamSalaries(data.name, function (err, data) {
             if (err) {} else {
                 $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');

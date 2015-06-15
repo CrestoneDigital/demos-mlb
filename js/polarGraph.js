@@ -2,20 +2,20 @@
      this.polarData = [
          {
              value: 0,
-             color: "#a3e1d4",
-             highlight: "#1ab394",
+             color: "#ff0000",
+             highlight: "#ff6666",
              label: "left Map"
         },
          {
              value: 81,
              color: "#dedede",
-             highlight: "#1ab394",
+             highlight: "#999999",
              label: "Yearly Win Average"
         },
           {
              value: 0,
-             color: "#dedede",
-             highlight: "#1ab394",
+             color: "#0000ff",
+             highlight: "#6666ff",
              label: "Right Map"
         }
     ];
