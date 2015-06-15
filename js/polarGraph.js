@@ -4,13 +4,19 @@
              value: 0,
              color: "#a3e1d4",
              highlight: "#1ab394",
-             label: "Team Wins"
+             label: "Team1 Wins"
         },
          {
              value: 81,
              color: "#dedede",
              highlight: "#1ab394",
              label: "Yearly Win Average"
+        },
+          {
+             value: 0,
+             color: "#dedede",
+             highlight: "#1ab394",
+             label: "Team 2 Wins"
         }
     ];
      this.polarOptions = {
