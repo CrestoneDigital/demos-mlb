@@ -1,17 +1,25 @@
 $(function () {
-    
-    var colorTeam1={r:255, g:0, b:0};
-    var colorTeam2={r:0, g:0, b:255};
-    
+
+    var colorTeam1 = {
+        r: 255,
+        g: 0,
+        b: 0
+    };
+    var colorTeam2 = {
+        r: 0,
+        g: 0,
+        b: 255
+    };
+
     // Left Map
     var m = new MlbMap({
         user: 'crestonedigital'
-    }, 'rgb('+colorTeam1.r+','+colorTeam1.g+','+colorTeam1.b+')',true);
+    }, 'rgb(' + colorTeam1.r + ',' + colorTeam1.g + ',' + colorTeam1.b + ')', true);
 
     // Right Map
     var p = new MlbMap({
         user: 'crestonedigital'
-    }, 'rgb('+colorTeam2.r+','+colorTeam2.g+','+colorTeam2.b+')',false);
+    }, 'rgb(' + colorTeam2.r + ',' + colorTeam2.g + ',' + colorTeam2.b + ')', false);
 
     //Declarations     
     var graph = new LineGraph(undefined, undefined);
@@ -19,6 +27,7 @@ $(function () {
     var currentTeam2 = undefined;
     previousTeam1 = null;
     previousTeam2 = null;
+
     //Render original polar graphs
     var polarGraph1 = new PolarGraph();
     polarGraph1.render("polar1");
@@ -33,14 +42,6 @@ $(function () {
         }
     });
 
-    //Declarations     
-    var graph = new LineGraph(undefined, undefined);
-    var currentTeam1 = undefined;
-    var currentTeam2 = undefined;
-
-    previousTeam1 = null;
-    previousTeam2 = null;
-
     var polarGraph4 = new PolarGraph("polar4");
     m.getMlbMoneyPerWinYear(2014, function (err, data) {
         if (err) {} else {
@@ -49,6 +50,14 @@ $(function () {
             polarGraph4.render("polar4");
         }
     });
+
+    //Declarations     
+    var graph = new LineGraph(undefined, undefined);
+    var currentTeam1 = undefined;
+    var currentTeam2 = undefined;
+
+    previousTeam1 = null;
+    previousTeam2 = null;
 
     // Create new slider
     m.getYearRanges(function (err, data) {
@@ -80,99 +89,181 @@ $(function () {
                     if (err) {} else {
                         graph.refreshData(data, 0);
                     }
-                    m.getTeamSalaries(currentTeam1, function (err, data) {
-                        if (err) {} else {
-                            if (currentTeam1 !== undefined) {
-                                graph.refreshData(data, 1);
-                            }
+                })
+                m.getTeamSalaries(currentTeam1, function (err, data) {
+                    if (err) {} else {
+                        if (currentTeam1 !== undefined) {
+                            graph.refreshData(data, 1);
                         }
-                        m.getTeamSalaries(currentTeam2, function (err, data) {
-                            if (err) {} else {
-                                $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
-                                if (currentTeam2 !== undefined) {
-                                    graph.refreshData(data, 2);
-                                }
-                            }
-                            graph.render("lineChart");
+                    }
+                })
+                m.getTeamSalaries(currentTeam2, function (err, data) {
+                    if (err) {} else {
+                        $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
+                        if (currentTeam2 !== undefined) {
+                            graph.refreshData(data, 2);
+                        }
+                        graph.render("lineChart");
+                    }
+                })
 
-                            //Re-render polar graphs
-                            $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
-                            $('#polar2').replaceWith('<canvas id="polar2"></canvas>');
-                            $('#polar3').replaceWith('<canvas id="polar3"></canvas>');
-                            $('#polar4').replaceWith('<canvas id="polar4"></canvas>');
-                            m.getTeamWins(currentTeam1, graph.year1, function (err, data) {
-                                if (err) {} else {
-                                    if (currentTeam1 !== undefined) {
+                //Re-render polar graphs
+                $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
+                $('#polar2').replaceWith('<canvas id="polar2"></canvas>');
+                $('#polar3').replaceWith('<canvas id="polar3"></canvas>');
+                $('#polar4').replaceWith('<canvas id="polar4"></canvas>');
+
+                // series for polar1
+                async.series([
+                    function (cb) {
+                            if (currentTeam1 !== undefined) {
+                                m.getTeamWins(currentTeam1, graph.year1, function (err, data) {
+                                    if (!err) {
                                         polarGraph1.refreshData(data, 0);
                                     }
-                                }
-                                m.getTeamWins(currentTeam1, graph.year2, function (err, data) {
-                                    if (err) {} else {
-                                        if (currentTeam1 !== undefined) {
-                                            polarGraph2.refreshData(data, 0);
-                                        }
+                                    cb();
+                                });
+                            } else {
+                                cb();
+                            }
+                    },
+                    function (cb) {
+                            if (currentTeam2 !== undefined) {
+                                p.getTeamWins(currentTeam2, graph.year1, function (err, data) {
+                                    if (!err) {
+                                        polarGraph1.refreshData(data, 2);
                                     }
-                                    p.getTeamWins(currentTeam2, graph.year1, function (err, data) {
-                                        if (err) {} else {
-                                            if (currentTeam2 !== undefined) {
-                                                polarGraph1.refreshData(data, 2);
-                                            }
-                                        }
-                                        p.getTeamWins(currentTeam2, graph.year2, function (err, data) {
-                                            if (err) {} else {
-                                                if (currentTeam2 !== undefined) {
-                                                    polarGraph2.refreshData(data, 2);
-                                                }
-                                                polarGraph1.render('polar1');
-                                                polarGraph2.render('polar2');
-                                            }
-                                            m.getMlbMoneyPerWinYear(graph.year1, function (err, data) {
-                                                if (err) {} else {
-                                                    polarGraph3.refreshData(data, 1);
-                                                }
-                                                m.getMlbMoneyPerWinYear(graph.year2, function (err, data) {
-                                                    if (err) {} else {
-                                                        polarGraph4.refreshData(data, 1);
-                                                    }
-                                                    m.getMoneyPerWin(currentTeam1, graph.year1, function (err, data) {
-                                                        if (err) {} else {
-                                                            if (currentTeam1 !== undefined) {
-                                                                polarGraph3.refreshData(data, 0);
-                                                            }
-                                                        }
-                                                        p.getMoneyPerWin(currentTeam1, graph.year2, function (err, data) {
-                                                            if (err) {} else {
-                                                                if (currentTeam2 !== undefined) {
-                                                                    polarGraph4.refreshData(data, 0);
-                                                                }
-                                                            }
-                                                            p.getMoneyPerWin(currentTeam2, graph.year1, function (err, data) {
-                                                            if (err) {} else {
-                                                                if (currentTeam2 !== undefined) {
-                                                                    polarGraph3.refreshData(data, 2);
-                                                                }
-                                                            }
-                                                                p.getMoneyPerWin(currentTeam2, graph.year2, function (err, data) {
-                                                                    if (err) {} else {
-                                                                if (currentTeam2 !== undefined) {
-                                                                    polarGraph4.refreshData(data, 2);
-                                                                }
-                                                                polarGraph3.render('polar3');
-                                                                polarGraph4.render('polar4');
-                                                            }
-                                                                })
-                                                            })
-                                                        })
-                                                    })
-                                                })
-                                            })
-                                        })
-                                    })
-                                })
-                            })
-                        })
-                    })
-                })
+                                    cb();
+                                });
+                            } else {
+                                cb();
+                            }
+                    }
+                ],
+                    function (err, results) {
+                        polarGraph1.render('polar1');
+
+                    });
+
+
+                //series for polar 2
+                async.series([
+                    function (cb) {
+                            if (currentTeam1 !== undefined) {
+                                m.getTeamWins(currentTeam1, graph.year2, function (err, data) {
+                                    if (!err) {
+                                        polarGraph2.refreshData(data, 0);
+                                    }
+                                    cb();
+
+                                });
+                            } else {
+                                cb();
+                            }
+                    },
+                    function (cb) {
+                            if (currentTeam2 !== undefined) {
+                                p.getTeamWins(currentTeam2, graph.year2, function (err, data) {
+                                    if (!err) {
+                                        polarGraph2.refreshData(data, 2);
+                                    }
+                                    cb();
+                                });
+                            } else {
+                                cb();
+                            }
+                    }
+                ],
+                    function (err, results) {
+                        polarGraph2.render('polar2');
+                    });
+
+                //series for polar 3
+                async.series([
+                    function (cb) {
+
+                            m.getMlbMoneyPerWinYear(graph.year1, function (err, data) {
+                                if (!err) {
+                                    polarGraph3.refreshData(data, 1);
+                                }
+                                cb();
+
+                            });
+                    },
+
+                     function (cb) {
+                            if (currentTeam1 !== undefined) {
+                                m.getMoneyPerWin(currentTeam1, graph.year1, function (err, data) {
+                                    if (!err) {
+                                        polarGraph3.refreshData(data, 0);
+                                    }
+                                    cb();
+
+                                });
+                            } else {
+                                cb();
+                            }
+                    },
+                    function (cb) {
+                            if (currentTeam1 !== undefined) {
+                                p.getMoneyPerWin(currentTeam2, graph.year1, function (err, data) {
+                                    if (!err) {
+                                        polarGraph3.refreshData(data, 2);
+                                    }
+                                    cb();
+
+                                });
+                            } else {
+                                cb();
+                            }
+                    }
+                ],
+                    function (err, results) {
+                        polarGraph3.render('polar3');
+                    });
+
+
+                // series for polar4
+                async.series([
+                    function (cb) {
+                            m.getMlbMoneyPerWinYear(graph.year2, function (err, data) {
+                                if (!err) {
+                                    polarGraph4.refreshData(data, 1);
+                                }
+                                cb();
+                            });
+                    },
+                                      function (cb) {
+                            if (currentTeam1 !== undefined) {
+                                p.getMoneyPerWin(currentTeam1, graph.year2, function (err, data) {
+                                    if (!err) {
+                                        polarGraph4.refreshData(data, 0);
+                                    }
+                                    cb();
+
+                                });
+                            } else {
+                                cb();
+                            }
+                    },
+                                                          function (cb) {
+                            if (currentTeam1 !== undefined) {
+                                p.getMoneyPerWin(currentTeam2, graph.year2, function (err, data) {
+                                    if (!err) {
+                                        polarGraph4.refreshData(data, 2);
+                                    }
+                                    cb();
+
+                                });
+                            } else {
+                                cb();
+                            }
+                    }
+                ],
+                    function (err, results) {
+                        polarGraph4.render('polar4');
+
+                    });
             }
         })
     })
@@ -205,36 +296,33 @@ $(function () {
         previousTeam1 = data.name.toLowerCase().replace(/\ /g, '-').replace(/\./g, "");
         m.getTeamSalaries(data.name, function (err, data) {
             if (err) {} else {
-                console.log(data);
                 graph.refreshData(data, 1);
             }
             m.getTeamWins(currentTeam1, graph.year1, function (err, data) {
                 if (err) {} else {
-                    console.log("Left Map click " + data);
                     polarGraph1.refreshData(data, 0)
                     $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
                     polarGraph1.render('polar1');
                 }
                 m.getTeamWins(currentTeam1, graph.year2, function (err, data) {
                     if (err) {} else {
-                        console.log("Left Map click " + data);
-                        polarGraph1.refreshData(data, 0)
+                        polarGraph2.refreshData(data, 0)
                         $('#polar2').replaceWith('<canvas id="polar2"></canvas>');
-                        polarGraph1.render('polar2');
+                        polarGraph2.render('polar2');
                     }
                     m.getMoneyPerWin(currentTeam1, graph.year1, function (err, data) {
                         if (err) {} else {
-                            polarGraph4.polarData[0].lael = "Team Cost Per Win";
-                            polarGraph4.refreshData(data, 0);
-                            $('#polar4').replaceWith('<canvas id="polar4"></canvas>');
-                            polarGraph4.render('polar4');
+                            polarGraph3.polarData[0].label = "Team Cost Per Win";
+                            polarGraph3.refreshData(data, 0);
+                            $('#polar3').replaceWith('<canvas id="polar3"></canvas>');
+                            polarGraph3.render('polar3');
                         }
                         m.getMoneyPerWin(currentTeam1, graph.year2, function (err, data) {
                             if (err) {} else {
-                                polarGraph3.polarData[0].lael = "Team Cost Per Win";
-                                polarGraph3.refreshData(data, 0);
-                                $('#polar3').replaceWith('<canvas id="polar3"></canvas>');
-                                polarGraph3.render('polar3');
+                                polarGraph4.polarData[0].label = "Team Cost Per Win";
+                                polarGraph4.refreshData(data, 0);
+                                $('#polar4').replaceWith('<canvas id="polar4"></canvas>');
+                                polarGraph4.render('polar4');
                             }
                             m.getMlbAvgSalary(function (err, data) {
                                 if (err) {} else {
@@ -264,35 +352,35 @@ $(function () {
                 $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
                 graph.refreshData(data, 2);
             }
-            p.getTeamWins(currentTeam2, graph.year2, function (err, data) {
+            p.getTeamWins(currentTeam2, graph.year1, function (err, data) {
                 if (err) {} else {
-                    polarGraph2.refreshData(data, 2)
-                    $('#polar2').replaceWith('<canvas id="polar2"></canvas>');
-                    polarGraph2.render('polar2');
+                    polarGraph1.refreshData(data, 2)
+                    $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
+                    polarGraph1.render('polar1');
                 }
-                p.getTeamWins(currentTeam2, graph.year1, function (err, data) {
+                p.getTeamWins(currentTeam2, graph.year2, function (err, data) {
                     if (err) {} else {
-                        polarGraph1.refreshData(data, 2)
-                        $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
-                        polarGraph1.render('polar1');
+                        polarGraph2.refreshData(data, 2)
+                        $('#polar2').replaceWith('<canvas id="polar2"></canvas>');
+                        polarGraph2.render('polar2');
                     }
 
-                    p.getMoneyPerWin(currentTeam2, graph.year2, function (err, data) {
+                    p.getMoneyPerWin(currentTeam2, graph.year1, function (err, data) {
                         if (err) {} else {
-                            polarGraph4.polarData[0].lael = "Team Cost Per Win";
-                            polarGraph4.refreshData(data, 2);
-                            $('#polar4').replaceWith('<canvas id="polar4"></canvas>');
-                            polarGraph4.render('polar4');
+                            polarGraph3.polarData[0].label = "Team Cost Per Win";
+                            polarGraph3.refreshData(data, 2);
+                            $('#polar3').replaceWith('<canvas id="polar3"></canvas>');
+                            polarGraph3.render('polar3');
                         }
-                        
-                        p.getMoneyPerWin(currentTeam2, graph.year1, function (err, data) {
+
+                        p.getMoneyPerWin(currentTeam2, graph.year2, function (err, data) {
                             if (err) {} else {
-                                polarGraph3.polarData[0].lael = "Team Cost Per Win";
-                                polarGraph3.refreshData(data, 2);
-                                $('#polar3').replaceWith('<canvas id="polar3"></canvas>');
-                                polarGraph3.render('polar3');
+                                polarGraph4.polarData[0].label = "Team Cost Per Win";
+                                polarGraph4.refreshData(data, 2);
+                                $('#polar4').replaceWith('<canvas id="polar4"></canvas>');
+                                polarGraph4.render('polar4');
                             }
-                            
+
                             p.getMlbAvgSalary(function (err, data) {
                                 if (err) {} else {
                                     graph.refreshData(data, 0);
