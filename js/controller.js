@@ -3,12 +3,12 @@ $(function () {
     // Left Map
     var m = new MlbMap({
         user: 'crestonedigital'
-    }, '#B81609');
+    }, 'rgb(255, 0, 0)');
 
     // Right Map
     var p = new MlbMap({
         user: 'crestonedigital'
-    }, '#3E7BB6');
+    }, 'rgb(0, 0, 255)');
 
     //draw polar area graph1
     var polarGraph1 = new PolarGraph();
@@ -22,9 +22,6 @@ $(function () {
     var graph = new LineGraph(undefined, undefined);
     var currentTeam1 = undefined;
     var currentTeam2 = undefined;
-
-    graph = null;
-    globalAvgSalary = null;
     
     previousTeam1=null;
     previousTeam2=null;
