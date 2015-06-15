@@ -28,5 +28,183 @@
 
 .baltimore-orioles {
     background: url(../img/mlb/baltimore-orioles.svg) no-repeat;
-    background-position: left center; 
+    background-size: 90px 75px;
+    background-position: 25% 50%; 
+/*    float: left;*/
 }
+
+.boston-red-sox {
+    background: url(../img/mlb/boston-red-sox.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.seattle-mariners {
+    background: url(../img/mlb/seattle-mariners.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.oakland-athletics {
+    background: url(../img/mlb/oakland-athletics.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.san-francisco-giants {
+    background: url(../img/mlb/san-francisco-giants.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 20% 50%; 
+}
+
+.los-angeles-dodgers {
+    background: url(../img/mlb/los-angeles-dodgers.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 24% 50%; 
+}
+
+.los-angeles-angels-of-anaheim {
+    background: url(../img/mlb/los-angeles-angels-of-anaheim.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 17% 50%; 
+}
+
+.san-diego-padres {
+    background: url(../img/mlb/san-diego-padres.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.arizona-diamondbacks {
+    background: url(../img/mlb/arizona-diamondbacks.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 23% 50%; 
+}
+
+.colorado-rockies {
+    background: url(../img/mlb/colorado-rockies.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.texas-rangers {
+    background: url(../img/mlb/texas-rangers.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.houston-astros {
+    background: url(../img/mlb/houston-astros.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.kansas-city-royals {
+    background: url(../img/mlb/kansas-city-royals.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.minnesota-twins {
+    background: url(../img/mlb/minnesota-twins.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.st-louis-cardinals {
+    background: url(../img/mlb/st-louis-cardinals.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.milwaukee-brewers {
+    background: url(../img/mlb/milwaukee-brewers.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 23% 50%; 
+}
+
+.chicago-white-sox {
+    background: url(../img/mlb/chicago-white-sox.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.chicago-cubs {
+    background: url(../img/mlb/chicago-cubs.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.cincinnati-reds {
+    background: url(../img/mlb/cincinnati-reds.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.atlanta-braves {
+    background: url(../img/mlb/atlanta-braves.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.tampa-bay-rays {
+    background: url(../img/mlb/tampa-bay-rays.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.florida-marlins {
+    background: url(../img/mlb/miami-marlins.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.detroit-tigers {
+    background: url(../img/mlb/detroit-tigers.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.cleveland-indians {
+    background: url(../img/mlb/cleveland-indians.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.pittsburgh-pirates {
+    background: url(../img/mlb/pittsburgh-pirates.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.toronto-blue-jays {
+    background: url(../img/mlb/toronto-blue-jays.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.philadelphia-phillies {
+    background: url(../img/mlb/philadelphia-phillies.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 24% 50%; 
+}
+
+.new-york-mets {
+    background: url(../img/mlb/new-york-mets.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.new-york-yankees {
+    background: url(../img/mlb/new-york-yankees.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 25% 50%; 
+}
+
+.washington-nationals {
+    background: url(../img/mlb/washington-nationals.svg) no-repeat;
+    background-size: 90px 70px;
+    background-position: 22% 50%; 
+}
+
+

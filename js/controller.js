@@ -21,6 +21,9 @@ $(function () {
     graph = null;
     globalAvgSalary = null;
     
+    previousTeam1=null;
+    previousTeam2=null;
+    
     // Create new slider
     m.getYearRanges(function (err, data) {
         $(slide).ionRangeSlider({
@@ -82,8 +85,10 @@ $(function () {
 
                 //Left map onclick function
                 m.on('featureClick', function (data) {
+                    $('#team1').removeClass(previousTeam1);
                     $('#team1').html(data.name);
                     $('#team1').addClass(data.name.toLowerCase().replace(/\ /g, '-'));
+                    previousTeam1=data.name.toLowerCase().replace(/\ /g, '-');
                     m.getTeamSalaries(data.name, function (err, data) {
                         if (err) {} else {
                             console.log(data);
@@ -120,8 +125,10 @@ $(function () {
                 });
                 //Right Map onclick functions
                 p.on('featureClick', function (data) {
+                    $('#team2').removeClass(previousTeam2);
                     $('#team2').html(data.name);
                     $('#team2').addClass(data.name.toLowerCase().replace(/\ /g, '-'));
+                    previousTeam2=data.name.toLowerCase().replace(/\ /g, '-');
                     p.getTeamSalaries(data.name, function (err, data) {
                         if (err) {} else {
                             lineData.datasets[2].data = graph.getData(data);
