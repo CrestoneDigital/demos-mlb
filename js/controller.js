@@ -10,13 +10,25 @@ $(function () {
         user: 'crestonedigital'
     }, 'rgb(0, 0, 255)');
 
-    //draw polar area graph1
+    //Declarations     
+    var graph = new LineGraph(undefined, undefined);
+    var currentTeam1 = undefined;
+    var currentTeam2 = undefined;
+    previousTeam1 = null;
+    previousTeam2 = null;
+    //Render original polar graphs
     var polarGraph1 = new PolarGraph();
     polarGraph1.render("polar1");
-
-    //draw polar area graph2
     var polarGraph2 = new PolarGraph();
     polarGraph2.render("polar2");
+    var polarGraph3 = new PolarGraph("polar3");
+    m.getMlbMoneyPerWinYear(2000, function (err, data) {
+        if (err) {} else {
+            polarGraph3.refreshData(data, 1);
+            polarGraph3.polarData[1].label = "Yearly Cost Per Win Average";
+            polarGraph3.render("polar3");
+        }
+    });
 
     //Declarations     
     var graph = new LineGraph(undefined, undefined);
@@ -26,6 +38,15 @@ $(function () {
     previousTeam1=null;
     previousTeam2=null;
     
+    var polarGraph4 = new PolarGraph("polar4");
+    m.getMlbMoneyPerWinYear(2014, function (err, data) {
+        if (err) {} else {
+            polarGraph4.refreshData(data, 1);
+            polarGraph4.polarData[1].label = "Yearly Cost Per Win Average";
+            polarGraph4.render("polar4");
+        }
+    });
+
     // Create new slider
     m.getYearRanges(function (err, data) {
         $(slide).ionRangeSlider({
@@ -51,9 +72,8 @@ $(function () {
                 //Re-render line Graph
                 m.getMlbAvgSalary(function (err, data) {
                     if (err) {} else {
-                        console.log(data);
                         graph.refreshData(data, 0);
-
+                    }
                         m.getTeamSalaries(currentTeam1, function (err, data) {
                             if (err) {} else {
                                 if (currentTeam1 !== undefined) {
@@ -62,7 +82,6 @@ $(function () {
                             }
                             m.getTeamSalaries(currentTeam2, function (err, data) {
                                 if (err) {} else {
-                                    //Create new html canvas elements
                                     $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
                                     if (currentTeam2 !== undefined) {
                                         graph.refreshData(data, 2);
@@ -72,26 +91,57 @@ $(function () {
                                     //Re-render polar graphs
                                     $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
                                     $('#polar2').replaceWith('<canvas id="polar2"></canvas>');
-                                    
+                                    $('#polar3').replaceWith('<canvas id="polar3"></canvas>');
+                                    $('#polar4').replaceWith('<canvas id="polar4"></canvas>');
+
                                     m.getTeamWins(currentTeam1, graph.year1, function (err, data) {
-                                        if (currentTeam1 !== undefined) {
-                                            console.log('Left Graph Slider release '+data)
-                                            polarGraph1.refreshData(data, 0);
-                                        }
-                                            polarGraph1.render('polar1');
-                                        
-                                        p.getTeamWins(currentTeam2, graph.year2, function (err, data) {
-                                            if (currentTeam2 !== undefined) {
-                                                console.log('Right Graph Slider release' +data);
-                                                polarGraph2.refreshData(data, 0);
+                                        if (err) {} else {
+                                            if (currentTeam1 !== undefined) {
+                                                console.log('Left Graph Slider release ' + data)
+                                                polarGraph1.refreshData(data, 0);
                                             }
-                                            polarGraph2.render('polar2');
+                                            polarGraph1.render('polar1');
+                                        }
+                                        p.getTeamWins(currentTeam2, graph.year2, function (err, data) {
+                                            if (err) {} else {
+                                                if (currentTeam2 !== undefined) {
+                                                    console.log('Right Graph Slider release' + data);
+                                                    polarGraph2.refreshData(data, 0);
+                                                }
+                                                polarGraph2.render('polar2');
+                                            }
+                                            m.getMlbMoneyPerWinYear(graph.year1, function (err, data) {
+                                                if (err) {} else {
+                                                    polarGraph3.refreshData(data, 1);
+                                                }
+                                                m.getMlbMoneyPerWinYear(graph.year2, function (err, data) {
+                                                    if (err) {} else {
+                                                        polarGraph4.refreshData(data, 1);
+                                                    }
+                                                    m.getMoneyPerWin(currentTeam1, graph.year1, function (err, data) {
+                                                        if (err) {} else {
+                                                            if (currentTeam1 !== undefined) {
+                                                                polarGraph3.refreshData(data, 0);
+                                                            }
+                                                            polarGraph3.render('polar3');
+                                                        }
+                                                        p.getMoneyPerWin(currentTeam2, graph.year2, function (err, data) {
+                                                            if (err) {} else {
+                                                                if (currentTeam2 !== undefined) {
+                                                                    polarGraph4.refreshData(data, 0);
+                                                                }
+                                                                polarGraph4.render('polar4');
+                                                            }
+                                                        })
+                                                    })
+                                                })
+                                            })
                                         })
                                     })
                                 }
                             })
                         })
-                    }
+                    
                 });
             }
         })
@@ -121,10 +171,10 @@ $(function () {
                 //Left map onclick function
                 m.on('featureClick', function (data) {
                     $('#team1').removeClass(previousTeam1);
-                    currentTeam1=data.name;
+                    currentTeam1 = data.name;
                     $('#team1').html(currentTeam1);
                     $('#team1').addClass(data.name.toLowerCase().replace(/\ /g, '-'));
-                    previousTeam1=data.name.toLowerCase().replace(/\ /g, '-');
+                    previousTeam1 = data.name.toLowerCase().replace(/\ /g, '-');
                     m.getTeamSalaries(data.name, function (err, data) {
                         if (err) {} else {
                             console.log(data);
@@ -132,28 +182,27 @@ $(function () {
 
                             m.getTeamWins(currentTeam1, graph.year1, function (err, data) {
                                 if (err) {} else {
-                                    console.log("Left Map click "+data);
+                                    console.log("Left Map click " + data);
                                     polarGraph1.refreshData(data, 0)
-
+                                    $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
+                                    polarGraph1.render('polar1');
                                     m.getMoneyPerWin(currentTeam1, graph.year1, function (err, data) {
                                         if (err) {} else {
-                                            //Create new html canvas element for polar data
-                                            $('#polar1').replaceWith('<canvas id="polar1"></canvas>');
-                                            //Draw polar graph on new canvas element
-                                            polarGraph1.render('polar1');
-
-
-                                            m.getMlbAvgSalary(function (err, data) {
-                                                if (err) {} else {
-                                                    graph.refreshData(data, 0);
-                                                    //Create new html canvas element for linechart
-                                                    $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
-                                                    //Draw map on new canvas element for linechart
-                                                    graph.render("lineChart");
-
-                                                }
-                                            })
+                                            polarGraph3.polarData[0].lael="Team Cost Per Win";
+                                            polarGraph3.refreshData(data, 0);
+                                            $('#polar3').replaceWith('<canvas id="polar3"></canvas>');
+                                            polarGraph3.render('polar3');
                                         }
+                                        m.getMlbAvgSalary(function (err, data) {
+                                            if (err) {} else {
+                                                graph.refreshData(data, 0);
+                                                //Create new html canvas element for linechart
+                                                $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
+                                                //Draw map on new canvas element for linechart
+                                                graph.render("lineChart");
+
+                                            }
+                                        })
                                     })
                                 }
                             })
@@ -163,28 +212,31 @@ $(function () {
                 //Right Map onclick functions
                 p.on('featureClick', function (data) {
                     $('#team2').removeClass(previousTeam2);
-                    currentTeam2=data.name;
+                    currentTeam2 = data.name;
                     $('#team2').html(currentTeam2);
                     $('#team2').addClass(data.name.toLowerCase().replace(/\ /g, '-'));
-                    previousTeam2=data.name.toLowerCase().replace(/\ /g, '-');
+                    previousTeam2 = data.name.toLowerCase().replace(/\ /g, '-');
                     p.getTeamSalaries(data.name, function (err, data) {
                         if (err) {} else {
-                            //Create new html canvas element
                             $(lineChart).replaceWith('<canvas id="lineChart"></canvas>');
-                            //Draw map on new canvas element
                             graph.refreshData(data, 2);
-//getTeamWins has an error with toronto and also needs to return 0 instead of undefined if the year doesn't exist (nationals)
+                            //getTeamWins has an error with toronto and also needs to return 0 instead of undefined if the year doesn't exist (nationals)
                             p.getTeamWins(currentTeam2, graph.year2, function (err, data) {
                                 if (err) {} else {
-                                    console.log('right click'+data);
+                                    console.log('right click' + data);
                                     polarGraph2.refreshData(data, 0)
+
+                                    $('#polar2').replaceWith('<canvas id="polar2"></canvas>');
+
+                                    polarGraph2.render('polar2');
 
                                     p.getMoneyPerWin(currentTeam2, graph.year2, function (err, data) {
                                         if (err) {} else {
-                                            //Create new html canvas element for polar data
-                                            $('#polar2').replaceWith('<canvas id="polar2"></canvas>');
-                                            //Draw polar graph on new canvas element
-                                            polarGraph2.render('polar2');
+                                            polarGraph4.polarData[0].lael="Team Cost Per Win";
+                                            polarGraph4.refreshData(data, 0);
+                                            $('#polar4').replaceWith('<canvas id="polar4"></canvas>');
+                                            polarGraph4.render('polar4');
+
 
                                             p.getMlbAvgSalary(function (err, data) {
                                                 if (err) {} else {
