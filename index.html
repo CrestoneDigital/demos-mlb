@@ -7,7 +7,6 @@
  
     <!-- CSS Files -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
@@ -16,7 +15,7 @@
     <link href="css/ion.rangeSlider.skinSimple.css" rel="stylesheet">
 
     
-   <style>
+  <style>
       #map,#map1 {
         height: 400px;
         padding: 0;
@@ -45,7 +44,7 @@
     <!-- Main Body and Charts -->
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2 class="pull-left">MLB Salaries</h2>
+            <h2 class="pull-left" id="title">MLB Salaries</h2>
             <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal2">
             About Project
             </button>
@@ -82,21 +81,8 @@
                         </thead>
                         <tbody>
                             <tr class="custom">
-                                <td class="custom2"><h3 class='year1'>2000</h></td>
-<!--
-                                <td class="custom2">
-                                    
-                                </td>
--->
-                                <td class="custom2 text-right"><h3 class='year2'>2014</h3></td>
-                            </tr>
-                            
-                            <tr>
-                                <td id="canvas" colspan="2">
-                                    <div>
-                                        <input type="text" id="slide" name="Years" value="" />  
-                                    </div>
-                                </td>
+                                <td class="custom2"><h3 class='year1'>2000</h3></td>
+                                <td class="custom2"><h3 class='year2'>2014</h3></td>
                             </tr>
                             
                             <tr>
@@ -117,7 +103,15 @@
                                 </td>
                             </tr>
                             </div>
-                              
+                            
+                            <tr>
+                                <td id="canvas" colspan="2">
+                                    <div>
+                                        <input type="text" id="slide" name="Years" value="" />  
+                                    </div>
+                                </td>
+                            </tr>
+                            
                             <tr>
                                 <td class="custom"><h1 id="graphTitle">Average MLB Salary</h1></td>
                                 <td id="legend"></td>
@@ -176,6 +170,15 @@
                                 </td>
                             </tr>
                        </div> 
+                            
+                            <tr>
+                                <td>
+                                    <canvas id="polar3"></canvas>
+                                </td>
+                                <td>
+                                    <canvas id="polar4"></canvas>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -192,7 +195,7 @@
     
      <!-- Javascript for Line graph -->
     <script src="js/Chart.min.js"></script>
-    <script src="js/graphInput.js"></script>
+    <script src="js/lineGraph.js"></script>
     
     <!-- Javascript for Slider -->
     <script src="js/ion.rangeSlider.min.js"></script>

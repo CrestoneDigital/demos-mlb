@@ -4,8 +4,12 @@
 }
 
 .custom{
-    text-align: left;
-    font-weight: 400;
+    text-align: center;
+    font-weight: 600;
+}
+
+.custom2{
+    text-align: center;
 }
 
 #lineChart {
@@ -207,4 +211,7 @@
     background-position: 22% 50%; 
 }
 
+#title{
+ text-align: center!important;   
+}
 

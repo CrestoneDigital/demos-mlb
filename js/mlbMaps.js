@@ -17,7 +17,6 @@ MlbMap.prototype.getYearRanges = function (cb) {
     this.sql.execute(q).done(function (data) {
         l = []
         data.rows.forEach(function (r) {
-            console.log(r);
             l.push(r.yearID)
         });
         if (cb) {
@@ -31,11 +30,9 @@ MlbMap.prototype.getTeamSalaries = function (team, cb) {
     var q = "SELECT name,yearid,avg(salary) from mlb_salaries "
     q += "WHERE name = '" + team + "'";
     q += " group by yearid, name order by yearid asc"
-    console.log(q);
     this.sql.execute(q).done(function (data) {
         l = []
         data.rows.forEach(function (r) {
-            console.log(r);
             l.push(r.avg)
         });
         if (cb) cb(null, data.rows);
@@ -48,11 +45,9 @@ MlbMap.prototype.getTeamWins = function (team, year, cb) {
     q += "WHERE name = '" + team + "'";
     q += " and yearid = "+year;
     q += " group by yearid, name"
-    console.log(q);
     this.sql.execute(q).done(function (data) {
         l = []
         data.rows.forEach(function (r) {
-            console.log(r);
             l.push(r.avg)
         });
         if (cb) cb(null, data.rows);
@@ -66,10 +61,8 @@ MlbMap.prototype.getMoneyPerWin = function (team, year, cb) {
     q += "WHERE t.name = s.name and s.yearid=t.yearid and t.name= '" + team + "'";
     q += " and t.yearid = "+year;
     //q += " group by t.name, t.yearid"
-    console.log(q);
     this.sql.execute(q).done(function (data) {
         data.rows.forEach(function (r) {
-            console.log(r);
         });
         if (cb) cb(null, data.rows);
     });
@@ -81,10 +74,8 @@ MlbMap.prototype.getMlbMoneyPerWinYear = function (year,cb) {
     q += "FROM mlb_teams t, mlb_salaries s "
     q += "WHERE t.name = s.name and s.yearid=t.yearid and t.yearid = "+year;
     q += " group by t.yearid"
-    console.log(q);
     this.sql.execute(q).done(function (data) {
         data.rows.forEach(function (r) {
-            console.log(r);
         });
         if (cb) cb(null, data.rows);
     });
@@ -95,10 +86,8 @@ MlbMap.prototype.getMlbMoneyPerWin = function (cb) {
     var q = "SELECT FLOOR(avg(s.salary/t.w)) as avg  "
     q += "FROM mlb_teams t, mlb_salaries s "
     q += "WHERE t.name = s.name and s.yearid=t.yearid"
-    console.log(q);
     this.sql.execute(q).done(function (data) {
         data.rows.forEach(function (r) {
-            console.log(r);
         });
         if (cb) cb(null, data.rows);
     });
@@ -109,10 +98,8 @@ MlbMap.prototype.getAttPerGame = function (team, year, cb) {
     var q = "select FLOOR(avg(attendance)/81) as avg From mlb_teams  "
     q += "WHERE name= '" + team + "'";
     q += " and yearid = "+year;
-    console.log(q);
     this.sql.execute(q).done(function (data) {
         data.rows.forEach(function (r) {
-            console.log(r);
         });
         if (cb) cb(null, data.rows);
     });
@@ -122,10 +109,8 @@ MlbMap.prototype.getAttPerGame = function (team, year, cb) {
 MlbMap.prototype.getAttPerGameYear = function (year, cb) {
     var q = "select FLOOR(avg(attendance)/81) as avg From mlb_teams  "
     q += "WHERE yearid = "+year;
-    console.log(q);
     this.sql.execute(q).done(function (data) {
         data.rows.forEach(function (r) {
-            console.log(r);
         });
         if (cb) cb(null, data.rows);
     });
@@ -134,10 +119,8 @@ MlbMap.prototype.getAttPerGameYear = function (year, cb) {
 //get mlb average salary
 MlbMap.prototype.getMlbAvgSalary = function (cb) {
     var q = "SELECT yearid,FLOOR(avg(salary)) as avg from mlb_salaries group by yearid order by yearid asc"
-    console.log(q);
     this.sql.execute(q).done(function (data) {
         data.rows.forEach(function (r) {
-            console.log(r);
         });
         if (cb) cb(null, data.rows);
     });
@@ -175,9 +158,7 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
                 sql: self.sqlTpl.replace('{{year}}', year),
                 cartocss: self.cartoCssTpl
             });
-            //console.log(sql);
 
-            //console.log(sql);
             layers[1].on('featureOver', function (e, latlng, pos, data) {
                 // cartodb.log.log(e, latlng, pos, data);
             });

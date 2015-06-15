@@ -4,19 +4,14 @@
              value: 0,
              color: "#a3e1d4",
              highlight: "#1ab394",
-             label: "Team 1 Wins"
+             label: "Team Wins"
         },
          {
              value: 81,
              color: "#dedede",
              highlight: "#1ab394",
              label: "Yearly Win Average"
-        },
-         {
-             value: 0,
-             color: "#fff000",
-             label: "Team 2 Win Average"
-         }
+        }
     ];
      this.polarOptions = {
          scaleShowLabelBackdrop: true,
@@ -36,14 +31,13 @@
      }
  };
 
- PolarGraph.prototype.dataUpdate = function (data) {
+ PolarGraph.prototype.refreshData = function (data,sectionID) {
      console.log(data);
-     finalData = data[0].avg;
-     return finalData;
+     this.polarData[sectionID].value =  data[0].avg;
  }
 
  
- PolarGraph.prototype.drawPolarGraph = function (elementID) {
+ PolarGraph.prototype.render = function (elementID) {
      var cvs = document.getElementById(elementID)
      ctx = cvs.getContext("2d");
      var NewChart = new Chart(ctx).PolarArea(this.polarData, this.polarOptions);

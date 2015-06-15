@@ -1,4 +1,4 @@
-var GraphInput = function (year1, year2) {
+var LineGraph = function (year1, year2) {
     this.year1 = year1;
     this.year2 = year2;
 
@@ -56,7 +56,7 @@ var GraphInput = function (year1, year2) {
 };
 
 
-GraphInput.prototype.render = function (canvasId) {
+LineGraph.prototype.render = function (canvasId) {
     this.getLabels();
     var cvs = document.getElementById(canvasId)
     ctx = cvs.getContext("2d");
@@ -65,7 +65,7 @@ GraphInput.prototype.render = function (canvasId) {
 
 }
 
-GraphInput.prototype.getLabels = function () {
+LineGraph.prototype.getLabels = function () {
     var labels = [];
     var end = this.year2 - this.year1;
 
@@ -76,8 +76,7 @@ GraphInput.prototype.getLabels = function () {
     this.lineData.labels= labels;
 }
 
-//passed an array of object with properties name, yearid, avg
-GraphInput.prototype.getData = function (teamArray, lineID) {
+LineGraph.prototype.getData = function (teamArray, lineID) {
     //This function works for teams that start later than 2000
     salaryArray = [];
     var end = teamArray.length - 1;
@@ -97,7 +96,7 @@ GraphInput.prototype.getData = function (teamArray, lineID) {
     this.lineData.datasets[lineID].data = salaryArray;
 }
 
-GraphInput.prototype.cutData = function (lineID) {
+LineGraph.prototype.cutData = function (lineID) {
     var end = this.year2 - 2000;
     var newSalary = [];
     if (this.lineData.datasets[lineID].data.length !== 0) {
@@ -112,7 +111,7 @@ GraphInput.prototype.cutData = function (lineID) {
 }
 
 // Adds data without re-rendering the chart
-GraphInput.prototype.refreshData = function (data, lineID) {
+LineGraph.prototype.refreshData = function (data, lineID) {
     this.getData(data, lineID);
     this.cutData(lineID);
 }
