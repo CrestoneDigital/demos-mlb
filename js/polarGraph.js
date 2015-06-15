@@ -2,7 +2,7 @@
      this.polarData = [
          {
              value: 0,
-             color: "#ff0000",
+             color: "#0000ff",
              highlight: "#ff6666",
              label: "left Map"
         },
@@ -14,7 +14,7 @@
         },
           {
              value: 0,
-             color: "#0000ff",
+             color: "#ff0000",
              highlight: "#6666ff",
              label: "Right Map"
         }
