@@ -100,8 +100,8 @@ $(function () {
         })
 
         // Pass year range to graph object      
-//        graph.year1 = data[0].min;
-//        graph.year2 = data[0].max;
+        graph.year1 = data[0].min;
+        graph.year2 = data[0].max;
 
         //Render original lineGraph
         m.getMlbAvgSalary(function (err, data) {
