@@ -4,7 +4,7 @@
              value: 0,
              color: "#0000ff",
              highlight: "#6666ff",
-             label: "Right Map"
+             label: "Right Team"
         },
          {
              value: 81,
@@ -16,7 +16,7 @@
              value: 0,
              color: "#ff0000",
              highlight: "#ff6666",
-             label: "Left Map"
+             label: "Left Team"
         }
     ];
      this.polarOptions = {
