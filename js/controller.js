@@ -24,8 +24,8 @@ $(function () {
 
     //Declarations     
     var graph = new LineGraph();
-    var currentTeam1 = null;
-    var currentTeam2 = null;
+    var currentTeam1 = undefined;
+    var currentTeam2 = undefined;
     var previousTeam1 = null;
     var previousTeam2 = null;
 
@@ -105,7 +105,7 @@ $(function () {
                     function (cb) {
                             m.getMlbAvgSalary(function (err, data) {
                                 if (!err) {
-                                    polarGraph1.refreshData(data, 2);
+                                    graph.refreshData(data, 0);
                                 }
                                 cb();
                             });
