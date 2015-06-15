@@ -3,8 +3,8 @@
          {
              value: 0,
              color: "#0000ff",
-             highlight: "#ff6666",
-             label: "left Map"
+             highlight: "#6666ff",
+             label: "Right Map"
         },
          {
              value: 81,
@@ -15,8 +15,8 @@
           {
              value: 0,
              color: "#ff0000",
-             highlight: "#6666ff",
-             label: "Right Map"
+             highlight: "#ff6666",
+             label: "Left Map"
         }
     ];
      this.polarOptions = {
@@ -42,6 +42,9 @@
      this.polarData[sectionID].value =  data[0].avg;
  }
 
+// PolarGraph.prototype.refreshLeftName = function (name) {
+//     this.leftMap = name;
+// }
  
  PolarGraph.prototype.render = function (elementID) {
      var cvs = document.getElementById(elementID)
