@@ -3,11 +3,7 @@
          {
              value: 0,
              color: "#0000ff",
-<<<<<<< HEAD
-             highlight: "#ff6666",
-=======
              highlight: "#6666ff",
->>>>>>> origin/master
              label: "Right Map"
         },
          {
@@ -19,11 +15,7 @@
           {
              value: 0,
              color: "#ff0000",
-<<<<<<< HEAD
-             highlight: "#6666ff",
-=======
              highlight: "#ff6666",
->>>>>>> origin/master
              label: "Left Map"
         }
     ];
@@ -49,10 +41,6 @@
      console.log(data);
      this.polarData[sectionID].value =  data[0].avg;
  }
-
-// PolarGraph.prototype.refreshLeftName = function (name) {
-//     this.leftMap = name;
-// }
  
  PolarGraph.prototype.render = function (elementID) {
      var cvs = document.getElementById(elementID)
