@@ -19,6 +19,7 @@
              color: "#ff3333",
              highlight: "#ff0000",
              label: this.nameRight
+
         }
     ];
      this.polarOptions = {
