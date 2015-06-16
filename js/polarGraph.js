@@ -1,10 +1,12 @@
  var PolarGraph = function () {
+     this.nameLeft = "Left Map";
+     this.nameRight = "Right Map";
      this.polarData = [
          {
              value: 0,
-             color: "#0000ff",
-             highlight: "#6666ff",
-             label: "Right Map"
+             color: "#3333ff",
+             highlight: "#0000ff",
+             label: this.nameLeft
         },
          {
              value: 81,
@@ -14,9 +16,9 @@
         },
           {
              value: 0,
-             color: "#ff0000",
-             highlight: "#ff6666",
-             label: "Left Map"
+             color: "#ff3333",
+             highlight: "#ff0000",
+             label: this.nameRight
         }
     ];
      this.polarOptions = {
@@ -40,6 +42,14 @@
  PolarGraph.prototype.refreshData = function (data,sectionID) {
      console.log(data);
      this.polarData[sectionID].value =  data[0].avg;
+ }
+ 
+ PolarGraph.prototype.refreshLeftname = function (name) {
+     this.nameLeft =  name;
+ }
+ 
+ PolarGraph.prototype.refreshRightname = function (name) {
+     this.nameRight =  name;
  }
  
  PolarGraph.prototype.render = function (elementID) {

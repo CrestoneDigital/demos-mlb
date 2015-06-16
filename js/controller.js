@@ -1,25 +1,14 @@
 $(function () {
 
-    var colorTeam1 = {
-        r: 255,
-        g: 0,
-        b: 0
-    };
-    var colorTeam2 = {
-        r: 0,
-        g: 0,
-        b: 255
-    };
-
     // Left Map
     var m = new MlbMap({
         user: 'crestonedigital'
-    }, 'rgb(' + colorTeam1.r + ',' + colorTeam1.g + ',' + colorTeam1.b + ')', true);
+    }, '#ff3333', true);
 
     // Right Map
     var p = new MlbMap({
         user: 'crestonedigital'
-    }, 'rgb(' + colorTeam2.r + ',' + colorTeam2.g + ',' + colorTeam2.b + ')', false);
+    }, '#3333ff', false);
 
     //Declarations     
     var graph = new LineGraph(undefined, undefined);
