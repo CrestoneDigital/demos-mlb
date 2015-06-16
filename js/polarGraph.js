@@ -6,7 +6,7 @@
              value: 0,
              color: "#3333ff",
              highlight: "#0000ff",
-             label: this.nameLeft
+             label: this.nameRight
         },
          {
              value: 81,
@@ -18,7 +18,7 @@
              value: 0,
              color: "#ff3333",
              highlight: "#ff0000",
-             label: this.nameRight
+             label: this.nameLeft
 
         }
     ];
