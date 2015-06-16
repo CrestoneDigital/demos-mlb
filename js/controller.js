@@ -1,20 +1,6 @@
 $(function () {
 
-<<<<<<< HEAD
-=======
-    var colorTeam1 = {
-        r: 255,
-        g: 0,
-        b: 0
-    };
 
-    var colorTeam2 = {
-        r: 0,
-        g: 0,
-        b: 255
-    };
-
->>>>>>> origin/master
     // Left Map
     var m = new MlbMap({
         user: 'crestonedigital'
