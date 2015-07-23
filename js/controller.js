@@ -5,11 +5,27 @@ $(function () {
     var m = new MlbMap({
         user: 'crestonedigital'
     }, '#ff3333', true);
-
+    
+    //Mapstats tracker
+    var config ={
+      token: 'cda_1437685090614',
+      map: m,
+      tag: 'left-map'
+   }
+   mapstats = new MapStats(config);
+    
     // Right Map
     var p = new MlbMap({
         user: 'crestonedigital'
     }, '#3333ff', false);
+    
+    //MapStats tracker
+    var config ={
+      token: 'cda_1437685090614',
+      map: p,
+      tag: 'right-map'
+   }
+   mapstats = new MapStats(config);
 
     //Declarations     
     var graph = new LineGraph();
