@@ -1,7 +1,8 @@
-MlbMap = function (settings, color, logo) {
+MlbMap = function (settings, color, logo,tag) {
     this.settings = settings;
     this.layerPtr = null;
     this.logo = logo;
+    this.tag = tag;
     this.sql = new cartodb.SQL({
         user: settings.user
     });
@@ -142,6 +143,14 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
             cartodb_logo: self.logo
         })
         .done(function (vis, layers) {
+            //MapStats tracker
+    var config ={
+      token: 'cda_1437685090614',
+      map: vis,
+      tag: this.tag
+   }
+   mapstats = new MapStats(config);
+        
             // layer 0 is the base layer, layer 1 is cartodb layer
             // setInteraction is disabled by default
             layers[1].setInteraction(true);
