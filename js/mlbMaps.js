@@ -166,7 +166,6 @@ MlbMap.prototype.createMap = function (year, mapName, callback) {
                 // cartodb.log.log(e, latlng, pos, data);
             });
             layers[1].on('featureClick', function (e, latlng, pos, data) {
-                console.log(e, latlng, pos, data);
                 self.trigger('featureClick', data);
 
             });
